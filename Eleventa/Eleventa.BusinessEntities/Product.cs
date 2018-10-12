@@ -10,42 +10,80 @@ namespace Eleventa.BusinessEntities
 {
     public class Product
     {
+
         [Key]
-        [Required(ErrorMessage = "Ingrese el campo Id")]
         public int Id { get; set; }
 
+        /// <summary>
+        /// Nombre o Descripcion del Producto
+        /// </summary>
         [Required(ErrorMessage = "Ingrese el campo Descripcion")]
         public String Descripcion { get; set; }
 
-        [Required(ErrorMessage = "Ingrese el campo Cantidad")]
-        public int Cantidad { get; set; }
-
-        [Required(ErrorMessage = "Ingrese el campo CodigoBarras")]
-        public String CodigoBarras { get; set; }
-
-        [Required(ErrorMessage = "Ingrese el campo Precio")]
-        public double Precio { get; set; }
-
-        [Required(ErrorMessage = "Ingrese el campo PrecioMayoreo")]
-        public double PrecioMayoreo { get; set; }
-
-        [Required(ErrorMessage = "Ingrese el campo Costo")]
-        public double Costo { get; set; }
-
-        [Required(ErrorMessage = "Ingrese el campo Ganancia")]
-        public double Ganancia { get; set; }
-
-        [Required(ErrorMessage = "Ingrese el campo InvMinima")]
-        public int InvMinima { get; set; }
-
-        [Required(ErrorMessage = "Ingrese el campo InvMaxima")]
-        public int InvMaxima { get; set; }
-
-        [ForeignKey ("Department")]
+        /// <summary>
+        /// Departamento al que pertenece el producto
+        /// </summary>
+        [ForeignKey("Department")]
         [Required(ErrorMessage = "Ingrese el campo IdDepartamento")]
         public int IdDepartamento { get; set; }
         public Department Department { get; set; }
 
+        /// <summary>
+        /// Codigo de Barras del producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo CodigoBarras")]
+        [StringLength(12, ErrorMessage = "Longitud maxima de 12 Digitos en el campo")]
+        public String CodigoBarras { get; set; }
+
+        /// <summary>
+        /// Cantidad actual del producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo Cantidad")]
+        public int Cantidad { get; set; }
+
+        /// <summary>
+        /// precio de la compra del producto a un provedor
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo Costo")]
+        public double Costo { get; set; }
+
+        /// <summary>
+        /// Precio del producto a como lo vendes 
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo Precio")]
+        public double Precio { get; set; }
+
+        /// <summary>
+        /// Precio del producto al mayoreo
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo PrecioMayoreo")]
+        public double PrecioMayoreo { get; set; }
+
+        /// <summary>
+        /// Ganancia del producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo Ganancia")]
+        public double Ganancia { get; set; }
+
+        /// <summary>
+        /// Campo para saber si el producto usa inventario o no
+        /// </summary>
+        [Required(ErrorMessage = "El campo Use_Inventory es obligatorio")]
+        public bool Use_Inventory { get; set; }
+
+        /// <summary>
+        /// Campo para saber la cantidad minima que se puede tener de este producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo InvMinima")]
+        public int InvMinima { get; set; }
+
+        /// <summary>
+        /// Campo para saber la cantidad maxima que se puede tener de este producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo InvMaxima")]
+        public int InvMaxima { get; set; }
+
         public virtual ICollection<Sale> Sales { get; set; }
+
     }
 }

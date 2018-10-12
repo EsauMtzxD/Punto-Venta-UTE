@@ -14,6 +14,8 @@ namespace Eleventa.BusinessEntities
         public EleventaDbContext() : base("EleventaDbContext")
         {
 
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EleventaDbContext, BusinessEntities.Migrations.Configuration>());
+
         }
 
         public DbSet <Cut> Cuts { get; set; }

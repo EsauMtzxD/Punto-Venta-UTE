@@ -10,24 +10,38 @@ namespace Eleventa.BusinessEntities
 {
     public class Cut
     {
+        /// <summary>
+        /// Llave primari del corte
+        /// </summary>
         [Key]
-        [Required(ErrorMessage = "Ingrese el campo Id")]
         public int Id { get; set; }
 
+        /// <summary>
+        /// Saldo inicial de la caja
+        /// </summary>
         [Required(ErrorMessage = "Ingrese el campo FondoInicial")]
         public double FondoInicial { get; set; }
 
+        /// <summary>
+        /// Cantidad final con la que quedo la caja
+        /// </summary>
         [Required(ErrorMessage = "Ingrese el campo CantidadFinal")]
         public double CantidadFinal { get; set; }
 
+        /// <summary>
+        /// Diferencia entre el saldo inicial y el saldo final
+        /// </summary>
         [Required(ErrorMessage = "Ingrese el campo Diferencia")]
         public double Diferencia { get; set; }
 
+        /// <summary>
+        /// Fecha del corte
+        /// </summary>
         [Required(ErrorMessage = "Ingrese el campo Fecha")]
         [DataType(DataType.Date)]
         public DateTime Fecha { get; set; }
 
-        [ForeignKey ("Sale")]
+        [ForeignKey("Sale")]
         public int IdVenta { get; set; }
         public Sale Sale { get; set; }
     }

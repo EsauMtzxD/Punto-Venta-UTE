@@ -3,7 +3,7 @@ namespace Eleventa.BusinessEntities.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -30,10 +30,10 @@ namespace Eleventa.BusinessEntities.Migrations
                         Articulo = c.String(nullable: false, unicode: false),
                         Precio = c.Double(nullable: false),
                         CantidadArticulos = c.Int(nullable: false),
-                        Pago = c.Double(nullable: false),
                         Subtotal = c.Double(nullable: false),
-                        Total = c.Double(nullable: false),
                         Iva = c.Double(nullable: false),
+                        Total = c.Double(nullable: false),
+                        Pago = c.Double(nullable: false),
                         Cambio = c.Double(nullable: false),
                         NombreEmpleado = c.String(nullable: false, unicode: false),
                         Fecha = c.DateTime(nullable: false, precision: 0),
@@ -49,15 +49,16 @@ namespace Eleventa.BusinessEntities.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Descripcion = c.String(nullable: false, unicode: false),
+                        IdDepartamento = c.Int(nullable: false),
+                        CodigoBarras = c.String(nullable: false, maxLength: 12, unicode: false, storeType: "nvarchar"),
                         Cantidad = c.Int(nullable: false),
-                        CodigoBarras = c.String(nullable: false, unicode: false),
+                        Costo = c.Double(nullable: false),
                         Precio = c.Double(nullable: false),
                         PrecioMayoreo = c.Double(nullable: false),
-                        Costo = c.Double(nullable: false),
                         Ganancia = c.Double(nullable: false),
+                        Use_Inventory = c.Boolean(nullable: false),
                         InvMinima = c.Int(nullable: false),
                         InvMaxima = c.Int(nullable: false),
-                        IdDepartamento = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Department", t => t.IdDepartamento, cascadeDelete: true)
