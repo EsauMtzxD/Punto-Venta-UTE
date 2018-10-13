@@ -45,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
@@ -57,9 +58,9 @@
   <ItemGroup>
     <Compile Include="Department.cs" />
     <Compile Include="EleventaDbContext.cs" />
-    <Compile Include="Migrations\201810121458223_initial.cs" />
-    <Compile Include="Migrations\201810121458223_initial.Designer.cs">
-      <DependentUpon>201810121458223_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201810121545200_initial.cs" />
+    <Compile Include="Migrations\201810121545200_initial.Designer.cs">
+      <DependentUpon>201810121545200_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
@@ -72,8 +73,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810121458223_initial.resx">
-      <DependentUpon>201810121458223_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810121545200_initial.resx">
+      <DependentUpon>201810121545200_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

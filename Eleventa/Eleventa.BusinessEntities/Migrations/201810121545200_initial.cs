@@ -49,8 +49,9 @@ namespace Eleventa.BusinessEntities.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Descripcion = c.String(nullable: false, unicode: false),
-                        IdDepartamento = c.Int(nullable: false),
                         CodigoBarras = c.String(nullable: false, maxLength: 12, unicode: false, storeType: "nvarchar"),
+                        Unidad_Venta = c.String(nullable: false, maxLength: 50, unicode: false, storeType: "nvarchar"),
+                        IdDepartamento = c.Int(nullable: false),
                         Cantidad = c.Int(nullable: false),
                         Costo = c.Double(nullable: false),
                         Precio = c.Double(nullable: false),

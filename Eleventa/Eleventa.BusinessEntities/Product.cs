@@ -21,19 +21,26 @@ namespace Eleventa.BusinessEntities
         public String Descripcion { get; set; }
 
         /// <summary>
+        /// Codigo de Barras del producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo CodigoBarras")]
+        [StringLength(12, ErrorMessage = "Longitud maxima de 12 Digitos en el campo")]
+        public String CodigoBarras { get; set; }
+
+        /// <summary>
+        /// Unidad de la venta, el como se vende.
+        /// </summary>
+        [Required(ErrorMessage = "El campo Unidad_Venta es Obligatorio")]
+        [StringLength(50, ErrorMessage = "La longitud maxima es de 50 caracteres")]
+        public string Unidad_Venta { get; set; }
+
+        /// <summary>
         /// Departamento al que pertenece el producto
         /// </summary>
         [ForeignKey("Department")]
         [Required(ErrorMessage = "Ingrese el campo IdDepartamento")]
         public int IdDepartamento { get; set; }
         public Department Department { get; set; }
-
-        /// <summary>
-        /// Codigo de Barras del producto
-        /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo CodigoBarras")]
-        [StringLength(12, ErrorMessage = "Longitud maxima de 12 Digitos en el campo")]
-        public String CodigoBarras { get; set; }
 
         /// <summary>
         /// Cantidad actual del producto

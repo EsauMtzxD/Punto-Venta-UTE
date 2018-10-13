@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Eleventa.BusinessEntities
         public EleventaDbContext() : base("EleventaDbContext")
         {
 
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EleventaDbContext, BusinessEntities.Migrations.Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<EleventaDbContext, BusinessEntities.Migrations.Configuration>());
 
         }
 
@@ -27,5 +28,6 @@ namespace Eleventa.BusinessEntities
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }
+
     }
 }

@@ -15,6 +15,10 @@ namespace Eleventa.BusinessEntities.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
+        /// <summary>
+        /// Metodo para Insertar datos por default en la bd
+        /// </summary>
+        /// <param name="dbCtx"></param>
         protected override void Seed(Eleventa.BusinessEntities.EleventaDbContext dbCtx)
         {
 
@@ -58,6 +62,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "Laptop DELL '15.5' - Core - i5 - 8 RAM - 1 TB Disco Duro",
                     IdDepartamento = 1,
                     CodigoBarras = "753124897648",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 5,
                     Costo = 18.530,
                     Precio = 20.500,
@@ -75,6 +80,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "HP - Mouse Omen 600 Alábrico - Negro",
                     IdDepartamento = 1,
                     CodigoBarras = "951753842613",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 20,
                     Costo = 800,
                     Precio = 999,
@@ -93,6 +99,7 @@ namespace Eleventa.BusinessEntities.Migrations
                                     "V2 - Verde",
                     IdDepartamento = 1,
                     CodigoBarras = "486257913258",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 20,
                     Costo = 1000,
                     Precio = 1999,
@@ -110,6 +117,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "Whisky Crown Royal 750 ml",
                     IdDepartamento = 2,
                     CodigoBarras = "542687193753",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 10,
                     Costo = 100,
                     Precio = 196,
@@ -127,6 +135,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "Cervez Oscura Indio 6 botellas 355ml c/u",
                     IdDepartamento = 2,
                     CodigoBarras = "123789456753",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 15,
                     Costo = 10,
                     Precio = 75,
@@ -144,6 +153,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "Vino blanco concha y toro espumoso brut 700 ml",
                     IdDepartamento = 2,
                     CodigoBarras = "741852963754",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 5,
                     Costo = 100,
                     Precio = 179,
@@ -161,6 +171,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "Mango ataulfo por kilo",
                     IdDepartamento = 3,
                     CodigoBarras = "654753159875",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 500,
                     Costo = 10,
                     Precio = 28.9,
@@ -178,6 +189,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "Durazno por kilo",
                     IdDepartamento = 3,
                     CodigoBarras = "364751249876",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 500,
                     Costo = 30,
                     Precio = 49.9,
@@ -195,6 +207,7 @@ namespace Eleventa.BusinessEntities.Migrations
                     Descripcion = "Kiwi importado por kilo",
                     IdDepartamento = 3,
                     CodigoBarras = "457812967521",
+                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 500,
                     Costo = 30,
                     Precio = 69,
