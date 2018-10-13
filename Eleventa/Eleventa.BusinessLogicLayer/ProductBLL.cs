@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +69,35 @@ namespace Eleventa.BusinessLogicLayer
 
             }
             return msgError;
+        }
+
+        public static DataTable Productos(string CodigoBarras)
+        {
+
+            DataTable dt = new DataTable();
+
+            dt = DataAccessLayer.ProductDAL.Productos(CodigoBarras);
+
+            return dt;
+
+        }
+
+        public static string Eliminar_Producto(string Bar)
+        {
+
+            string msgError = string.Empty;
+
+            bool isSaved = DataAccessLayer.ProductDAL.EliminarProducto(Bar);
+
+            if(isSaved != true)
+            {
+
+                msgError = "No se puedo Eliminar el Producto";
+
+            }
+
+            return msgError;
+
         }
 
     }

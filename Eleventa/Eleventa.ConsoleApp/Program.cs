@@ -49,7 +49,9 @@ namespace Eleventa.ConsoleApp
 
                             case 3:
 
-                                //Eliminar Producto
+                                Console.Clear();
+
+                                Eliminar_Producto();
 
                                 break;
                         }
@@ -69,7 +71,9 @@ namespace Eleventa.ConsoleApp
 
                         }
 
-                    } while (Repetir_Ope > 2 || Repetir_Ope < 1);
+                        Console.Clear();
+
+                    } while (Repetir_Ope == 1);
                     break;
 
                 case 2:
@@ -97,6 +101,7 @@ namespace Eleventa.ConsoleApp
             do
             {
 
+                Console.WriteLine("\n");
                 Console.WriteLine("Indica la operacion que quieras hacer \n"
                                     + "1.- Productos \n"
                                     + "2.- Ventas \n"
@@ -124,7 +129,8 @@ namespace Eleventa.ConsoleApp
             do
             {
 
-                Console.WriteLine("  :D --------- Productos --------- xD");
+                Console.WriteLine("\n");
+                Console.WriteLine("  :D --------- Productos --------- xD\n");
                 Console.WriteLine("Que Operacion desear realizar?... \n"
                                      + "1.- Agregar Producto \n"
                                      + "2.- Modificar Producti \n"
@@ -156,7 +162,8 @@ namespace Eleventa.ConsoleApp
 
             Product p = new Product();
 
-            Console.Write(" -// Nuevo Producto \\-");
+            Console.WriteLine("\n");
+            Console.Write(" -// Nuevo Producto \\-\n");
             Console.WriteLine("Descripcion: "); p.Descripcion = Console.ReadLine().ToString().Trim();
             Console.WriteLine("Codigo de Barras"); p.CodigoBarras = Console.ReadLine().ToString().Trim();
 
@@ -286,7 +293,7 @@ namespace Eleventa.ConsoleApp
                 if (string.IsNullOrEmpty(msgError))
                 {
 
-                    Console.WriteLine("Se inserte el Producto correctamente");
+                    Console.WriteLine("Se inserto el Producto correctamente");
 
                 }
                 else
@@ -300,6 +307,68 @@ namespace Eleventa.ConsoleApp
             {
 
                 Console.WriteLine(e.Message.ToString());
+
+            }
+
+        }
+        #endregion
+
+        #region Eliminar Producto
+        public static void Eliminar_Producto()
+        {
+
+            DataTable dt = new DataTable(); Product p = new Product();
+
+            Console.WriteLine("\n");
+            Console.WriteLine("-----Eliminar-----\n");
+            Console.WriteLine("Ingresa el Codifo de Barras que quieres Eliminar"); p.CodigoBarras = Console.ReadLine().ToString().Trim();
+
+            try
+            {
+
+                Console.WriteLine("Se llavara acabo la eliminacion del producto: ");
+                dt = BusinessLogicLayer.ProductBLL.Productos(p.CodigoBarras);
+
+                foreach (DataRow item in dt.Rows)
+                {
+
+                    Console.WriteLine("Id: {0}\n Descripcion: {1}\n Codigo de Barras: {2}\n Unidad de Venta: {3}\n Departamento: {4}\n Cantidad: {5}\n Costo: {6}\n Precio: {7}\n Precio al Mayoreo: {8}\n Ganancia: {9}\n Uso de Inventario: {10}\n Inventario Minimo: {11}\n Inventario Maximo: {12}\n",
+                        item["Id"].ToString(), item["Descripcion"].ToString(), item["Codigo de Barras"].ToString(), item["Unidad de Venta"].ToString(),
+                        item["Departamento"].ToString(), item["Cantidad"].ToString(), item["Costo"].ToString(), item["Precio"].ToString(), item["Precio al Mayoreo"].ToString(), item["Ganancia"].ToString(),
+                        item["Uso de Inventario"].ToString(), item["Inventario Minimo"].ToString(), item["Inventario Maximo"].ToString());
+
+                    Console.WriteLine("Desea Borrar el Producto?...\n"
+                        + "1.- Si\n"
+                        +"2.- No");
+                    int delete = Convert.ToInt32(Console.ReadLine());
+
+                    if(delete == 1)
+                    {
+
+                        string msgError = BusinessLogicLayer.ProductBLL.Eliminar_Producto(p.CodigoBarras);
+
+                        if (string.IsNullOrEmpty(msgError))
+                        {
+
+                            Console.WriteLine("Se Borro el Producto correctamente");
+
+                        }
+                        else
+                        {
+
+                            Console.WriteLine(msgError);
+
+                        }
+
+                    }
+
+                }
+
+            }
+            catch(Exception ex)
+            {
+
+                Console.WriteLine(ex.Message.ToString());
 
             }
 
