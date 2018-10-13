@@ -139,5 +139,30 @@ namespace Eleventa.DataAccessLayer
 
         }
 
+        public static bool Modificar_Producto(Product p)
+        {
+
+            bool isSaved = false;
+
+            using (EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                dbCtx.Entry(p).State = System.Data.Entity.EntityState.Modified;
+
+                int rowsAffected = dbCtx.SaveChanges();
+
+                if(rowsAffected > 0)
+                {
+
+                    isSaved = true;
+
+                }
+
+            }
+
+            return isSaved;
+
+        }
+
     }
 }

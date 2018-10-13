@@ -100,5 +100,23 @@ namespace Eleventa.BusinessLogicLayer
 
         }
 
+        public static string Modificar_Producto(Product p)
+        {
+
+            string msgError = string.Empty;
+
+            bool isSaved = DataAccessLayer.ProductDAL.Modificar_Producto(p);
+
+            if(isSaved != true)
+            {
+
+                msgError = "No se puedo Modificar el Producto";
+
+            }
+
+            return msgError;
+
+        }
+
     }
 }
