@@ -261,5 +261,56 @@ namespace Eleventa.DataAccessLayer
 
         }
 
+        public static DataTable Catalogo()
+        {
+
+            DataTable dt = new DataTable();
+
+            using (EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                Product p = new Product();
+
+                var result = (from product in dbCtx.Products
+                             join dep in dbCtx.Departments on product.IdDepartamento equals dep.Id
+                             select new
+                             {
+
+                                 product.Id,
+                                 product.Descripcion,
+                                 dep.Nombre,
+                                 product.Precio
+
+                             }).ToList();
+
+                dt.Columns.AddRange(new DataColumn[]
+                {
+
+                    new DataColumn("Id", typeof(int)),
+                    new DataColumn("Descripcion", typeof(string)),
+                    new DataColumn("Departamento", typeof(string)),
+                    new DataColumn("Precio $", typeof(double))
+
+                });
+
+                result.ToList().ForEach(x =>
+                {
+
+                    var row = dt.NewRow();
+
+                    row["Id"] = x.Id;
+                    row["Descripcion"] = x.Descripcion;
+                    row["Departamento"] = x.Nombre;
+                    row["Precio $"] = x.Precio;
+
+                    dt.Rows.Add(row);
+
+                });
+
+            }
+
+            return dt;
+        }
+
     }
 }

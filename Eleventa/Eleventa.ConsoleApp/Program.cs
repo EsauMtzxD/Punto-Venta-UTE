@@ -82,7 +82,7 @@ namespace Eleventa.ConsoleApp
 
                 case 2:
 
-                    //Ventas
+                    Ventas();
 
                     break;
 
@@ -830,6 +830,30 @@ namespace Eleventa.ConsoleApp
             {
 
                 Console.WriteLine(ex.Message.ToString());
+
+            }
+
+        }
+
+        #endregion
+
+        #region Ventas
+
+        public static void Ventas()
+        {
+
+            DataTable dt = new DataTable();
+
+            Console.WriteLine("\n\t!!!VENTAS¡¡¡");
+            Console.WriteLine("\n---------- CATALOGO :D --------------\n");
+
+            dt = BusinessLogicLayer.ProductBLL.Catalogo();
+
+            foreach (DataRow item in dt.Rows)
+            {
+
+                Console.WriteLine("\t1.- Id: {0}\n \t2.- Descripcion: {1}\n \t3.- Departamento: {2}\n \t4.- Precio: {3}\n",
+                    item["Id"].ToString(),item["Descripcion"].ToString(), item["Departamento"].ToString(), item["Precio $"].ToString());
 
             }
 

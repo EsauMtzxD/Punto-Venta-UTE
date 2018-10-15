@@ -158,5 +158,16 @@ namespace Eleventa.BusinessLogicLayer
 
         }
 
+        public static DataTable Catalogo()
+        {
+
+            DataTable dt = new DataTable();
+
+            dt = DataAccessLayer.ProductDAL.Catalogo();
+
+            return dt;
+
+        }
+
     }
 }
