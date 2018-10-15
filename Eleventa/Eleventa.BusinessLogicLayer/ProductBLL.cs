@@ -82,6 +82,17 @@ namespace Eleventa.BusinessLogicLayer
 
         }
 
+        public static Product Productos_Buscar(Product p)
+        {
+
+            Product pp = new Product();
+
+            pp = DataAccessLayer.ProductDAL.Productos_Buscar(p);
+
+            return pp;
+
+        }
+
         public static string Eliminar_Producto(string Bar)
         {
 

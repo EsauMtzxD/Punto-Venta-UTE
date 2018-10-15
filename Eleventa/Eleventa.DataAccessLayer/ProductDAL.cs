@@ -58,14 +58,14 @@ namespace Eleventa.DataAccessLayer
                     new DataColumn("Id", typeof(int)),
                     new DataColumn("Descripcion", typeof(string)),
                     new DataColumn("Codigo de Barras", typeof(string)),
-                    new DataColumn("Unidad de Venta", typeof(string)),
                     new DataColumn("Departamento", typeof(int)),
-                    new DataColumn("Cantidad", typeof(int)),
+                    new DataColumn("Unidad de Venta", typeof(string)),
                     new DataColumn("Costo", typeof(decimal)),
+                    new DataColumn("Ganancia", typeof(decimal)),
                     new DataColumn("Precio", typeof(decimal)),
                     new DataColumn("Precio al Mayoreo", typeof(decimal)),
-                    new DataColumn("Ganancia", typeof(decimal)),
                     new DataColumn("Uso de Inventario", typeof(bool)),
+                    new DataColumn("Cantidad", typeof(int)),
                     new DataColumn("Inventario Minimo", typeof(int)),
                     new DataColumn("Inventario Maximo", typeof(int))
 
@@ -79,13 +79,12 @@ namespace Eleventa.DataAccessLayer
                     row["Id"] = x.Id;
                     row["Descripcion"] = x.Descripcion;
                     row["Codigo de Barras"] = x.CodigoBarras;
-                    row["Unidad de Venta"] = x.Unidad_Venta;
                     row["Departamento"] = x.IdDepartamento;
-                    row["Cantidad"] = x.Cantidad;
+                    row["Unidad de Venta"] = x.Unidad_Venta;
                     row["costo"] = x.Costo;
+                    row["Ganancia"] = x.Ganancia;
                     row["Precio"] = x.Precio;
                     row["Precio al Mayoreo"] = x.PrecioMayoreo;
-                    row["Ganancia"] = x.Ganancia;
 
                     if(x.Use_Inventory == true)
                     {
@@ -99,6 +98,7 @@ namespace Eleventa.DataAccessLayer
                         row["Uso de Inventario"] = false;
 
                     }
+                    row["Cantidad"] = x.Cantidad;
                     row["Inventario Minimo"] = x.InvMinima;
                     row["Inventario Maximo"] = x.InvMaxima;
 
@@ -109,6 +109,22 @@ namespace Eleventa.DataAccessLayer
             }
 
             return dt;
+
+        }
+
+        public static Product Productos_Buscar(Product producto)
+        {
+
+            Product pp = new Product();
+
+            using(EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                pp = dbCtx.Products.Where(x => x.CodigoBarras == producto.CodigoBarras).FirstOrDefault();
+
+            }
+
+            return pp;
 
         }
 

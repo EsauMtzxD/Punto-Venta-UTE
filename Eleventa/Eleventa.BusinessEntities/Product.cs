@@ -18,21 +18,14 @@ namespace Eleventa.BusinessEntities
         /// Nombre o Descripcion del Producto
         /// </summary>
         [Required(ErrorMessage = "Ingrese el campo Descripcion")]
-        public String Descripcion { get; set; }
+        public string Descripcion { get; set; }
 
         /// <summary>
         /// Codigo de Barras del producto
         /// </summary>
         [Required(ErrorMessage = "Ingrese el campo CodigoBarras")]
         [StringLength(12, ErrorMessage = "Longitud maxima de 12 Digitos en el campo")]
-        public String CodigoBarras { get; set; }
-
-        /// <summary>
-        /// Unidad de la venta, el como se vende.
-        /// </summary>
-        [Required(ErrorMessage = "El campo Unidad_Venta es Obligatorio")]
-        [StringLength(50, ErrorMessage = "La longitud maxima es de 50 caracteres")]
-        public string Unidad_Venta { get; set; }
+        public string CodigoBarras { get; set; }
 
         /// <summary>
         /// Departamento al que pertenece el producto
@@ -43,16 +36,23 @@ namespace Eleventa.BusinessEntities
         public Department Department { get; set; }
 
         /// <summary>
-        /// Cantidad actual del producto
+        /// Unidad de la venta, el como se vende.
         /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Cantidad")]
-        public int Cantidad { get; set; }
+        [Required(ErrorMessage = "El campo Unidad_Venta es Obligatorio")]
+        [StringLength(50, ErrorMessage = "La longitud maxima es de 50 caracteres")]
+        public string Unidad_Venta { get; set; }
 
         /// <summary>
         /// precio de la compra del producto a un provedor
         /// </summary>
         [Required(ErrorMessage = "Ingrese el campo Costo")]
         public double Costo { get; set; }
+
+        /// <summary>
+        /// Ganancia del producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo Ganancia")]
+        public double Ganancia { get; set; }
 
         /// <summary>
         /// Precio del producto a como lo vendes 
@@ -67,16 +67,16 @@ namespace Eleventa.BusinessEntities
         public double PrecioMayoreo { get; set; }
 
         /// <summary>
-        /// Ganancia del producto
-        /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Ganancia")]
-        public double Ganancia { get; set; }
-
-        /// <summary>
         /// Campo para saber si el producto usa inventario o no
         /// </summary>
         [Required(ErrorMessage = "El campo Use_Inventory es obligatorio")]
         public bool Use_Inventory { get; set; }
+
+        /// <summary>
+        /// Cantidad actual del producto
+        /// </summary>
+        [Required(ErrorMessage = "Ingrese el campo Cantidad")]
+        public int Cantidad { get; set; }
 
         /// <summary>
         /// Campo para saber la cantidad minima que se puede tener de este producto

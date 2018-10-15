@@ -27,21 +27,32 @@ namespace Eleventa.BusinessEntities.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Articulo = c.String(nullable: false, unicode: false),
-                        Precio = c.Double(nullable: false),
-                        CantidadArticulos = c.Int(nullable: false),
+                        NumeroArticulos = c.Int(nullable: false),
+                        IdProducto = c.Int(nullable: false),
                         Subtotal = c.Double(nullable: false),
                         Iva = c.Double(nullable: false),
                         Total = c.Double(nullable: false),
                         Pago = c.Double(nullable: false),
                         Cambio = c.Double(nullable: false),
-                        NombreEmpleado = c.String(nullable: false, unicode: false),
+                        IdEmpleado = c.Int(nullable: false),
                         Fecha = c.DateTime(nullable: false, precision: 0),
-                        IdProducto = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Employee", t => t.IdEmpleado, cascadeDelete: true)
                 .ForeignKey("dbo.Product", t => t.IdProducto, cascadeDelete: true)
+                .Index(t => t.IdEmpleado)
                 .Index(t => t.IdProducto);
+            
+            CreateTable(
+                "dbo.Employee",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(nullable: false, unicode: false),
+                        Puesto = c.String(unicode: false),
+                        Caja = c.String(unicode: false),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Product",
@@ -50,14 +61,14 @@ namespace Eleventa.BusinessEntities.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Descripcion = c.String(nullable: false, unicode: false),
                         CodigoBarras = c.String(nullable: false, maxLength: 12, unicode: false, storeType: "nvarchar"),
-                        Unidad_Venta = c.String(nullable: false, maxLength: 50, unicode: false, storeType: "nvarchar"),
                         IdDepartamento = c.Int(nullable: false),
-                        Cantidad = c.Int(nullable: false),
+                        Unidad_Venta = c.String(nullable: false, maxLength: 50, unicode: false, storeType: "nvarchar"),
                         Costo = c.Double(nullable: false),
+                        Ganancia = c.Double(nullable: false),
                         Precio = c.Double(nullable: false),
                         PrecioMayoreo = c.Double(nullable: false),
-                        Ganancia = c.Double(nullable: false),
                         Use_Inventory = c.Boolean(nullable: false),
+                        Cantidad = c.Int(nullable: false),
                         InvMinima = c.Int(nullable: false),
                         InvMaxima = c.Int(nullable: false),
                     })
@@ -82,11 +93,14 @@ namespace Eleventa.BusinessEntities.Migrations
             DropForeignKey("dbo.Cut", "IdVenta", "dbo.Sale");
             DropForeignKey("dbo.Sale", "IdProducto", "dbo.Product");
             DropForeignKey("dbo.Product", "IdDepartamento", "dbo.Department");
+            DropForeignKey("dbo.Sale", "IdEmpleado", "dbo.Employee");
             DropIndex("dbo.Cut", new[] { "IdVenta" });
             DropIndex("dbo.Sale", new[] { "IdProducto" });
             DropIndex("dbo.Product", new[] { "IdDepartamento" });
+            DropIndex("dbo.Sale", new[] { "IdEmpleado" });
             DropTable("dbo.Department");
             DropTable("dbo.Product");
+            DropTable("dbo.Employee");
             DropTable("dbo.Sale");
             DropTable("dbo.Cut");
         }

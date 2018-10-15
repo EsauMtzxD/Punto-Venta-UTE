@@ -18,22 +18,17 @@ namespace Eleventa.BusinessEntities
         public int Id { get; set; }
 
         /// <summary>
-        /// Articulo de la venta
+        /// Es la cantidad de articulos que se estas vendiendo
         /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Articulo")]
-        public String Articulo { get; set; }
+        public int NumeroArticulos { get; set; }
 
         /// <summary>
-        /// Precio del articulo
+        /// Productos que se vendieron
         /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Precio")]
-        public double Precio { get; set; }
-
-        /// <summary>
-        /// Cantidad de Articulos que se esta comprando
-        /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo CantidadArticulos")]
-        public int CantidadArticulos { get; set; }
+        [ForeignKey("Product")]
+        [Required(ErrorMessage = "Ingrese el campo IdProducto")]
+        public int IdProducto { get; set; }
+        public Product Product { get; set; }
 
         /// <summary>
         /// El subtotal que tiene la venta
@@ -67,10 +62,12 @@ namespace Eleventa.BusinessEntities
         public double Cambio { get; set; }
 
         /// <summary>
-        /// Nombre del empleado que realizo la venta
+        /// Empleado que esta surtiendo
         /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo NombreEmpleado")]
-        public String NombreEmpleado { get; set; }
+        [ForeignKey("Employee")]
+        [Required(ErrorMessage = "El campo IdEmpleado es obligatorio")]
+        public int IdEmpleado { get; set; }
+        public Employee Employee { get; set; }
 
         /// <summary>
         /// Fecha en que se realizo la venta
@@ -79,13 +76,6 @@ namespace Eleventa.BusinessEntities
         [DataType(DataType.Date)]
         public DateTime Fecha { get; set; }
 
-        /// <summary>
-        /// Productos que se vendieron
-        /// </summary>
-        [ForeignKey("Product")]
-        [Required(ErrorMessage = "Ingrese el campo IdProducto")]
-        public int IdProducto { get; set; }
-        public Product Product { get; set; }
 
         public virtual ICollection<Cut> Cuts { get; set; }
 

@@ -15,10 +15,6 @@ namespace Eleventa.BusinessEntities.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        /// <summary>
-        /// Metodo para Insertar datos por default en la bd
-        /// </summary>
-        /// <param name="dbCtx"></param>
         protected override void Seed(Eleventa.BusinessEntities.EleventaDbContext dbCtx)
         {
 
@@ -60,15 +56,15 @@ namespace Eleventa.BusinessEntities.Migrations
                 {
 
                     Descripcion = "Laptop DELL '15.5' - Core - i5 - 8 RAM - 1 TB Disco Duro",
-                    IdDepartamento = 1,
                     CodigoBarras = "753124897648",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 5,
+                    IdDepartamento = 1,
+                    Unidad_Venta = "Por Pza",
                     Costo = 18.530,
+                    Ganancia = 2.500,
                     Precio = 20.500,
                     PrecioMayoreo = 0,
-                    Ganancia = 2.500,
                     Use_Inventory = true,
+                    Cantidad = 5,
                     InvMinima = 0,
                     InvMaxima = 10
 
@@ -78,144 +74,17 @@ namespace Eleventa.BusinessEntities.Migrations
                 {
 
                     Descripcion = "HP - Mouse Omen 600 Alábrico - Negro",
-                    IdDepartamento = 1,
                     CodigoBarras = "951753842613",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 20,
+                    IdDepartamento = 1,
+                    Unidad_Venta = "Por Pza",
                     Costo = 800,
+                    Ganancia = 199,
                     Precio = 999,
                     PrecioMayoreo = 0,
-                    Ganancia = 199,
                     Use_Inventory = true,
-                    InvMinima = 0,
-                    InvMaxima = 50
-
-                });
-
-                products.Add(new Product()
-                {
-
-                    Descripcion = "Razer - Audífonos Gaming estéreo Kraken Pro \n" +
-                                    "V2 - Verde",
-                    IdDepartamento = 1,
-                    CodigoBarras = "486257913258",
-                    Unidad_Venta = "Unidad/Pza",
                     Cantidad = 20,
-                    Costo = 1000,
-                    Precio = 1999,
-                    PrecioMayoreo = 0,
-                    Ganancia = 999,
-                    Use_Inventory = true,
                     InvMinima = 0,
                     InvMaxima = 50
-
-                });
-
-                products.Add(new Product()
-                {
-
-                    Descripcion = "Whisky Crown Royal 750 ml",
-                    IdDepartamento = 2,
-                    CodigoBarras = "542687193753",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 10,
-                    Costo = 100,
-                    Precio = 196,
-                    PrecioMayoreo = 150,
-                    Ganancia = 96,
-                    Use_Inventory = true,
-                    InvMinima = 0,
-                    InvMaxima = 20
-
-                });
-
-                products.Add(new Product()
-                {
-
-                    Descripcion = "Cervez Oscura Indio 6 botellas 355ml c/u",
-                    IdDepartamento = 2,
-                    CodigoBarras = "123789456753",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 15,
-                    Costo = 10,
-                    Precio = 75,
-                    PrecioMayoreo = 0,
-                    Ganancia = 15,
-                    Use_Inventory = true,
-                    InvMinima = 0,
-                    InvMaxima = 50
-
-                });
-
-                products.Add(new Product()
-                {
-
-                    Descripcion = "Vino blanco concha y toro espumoso brut 700 ml",
-                    IdDepartamento = 2,
-                    CodigoBarras = "741852963754",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 5,
-                    Costo = 100,
-                    Precio = 179,
-                    PrecioMayoreo = 0,
-                    Ganancia = 79,
-                    Use_Inventory = true,
-                    InvMinima = 0,
-                    InvMaxima = 10
-
-                });
-
-                products.Add(new Product()
-                {
-
-                    Descripcion = "Mango ataulfo por kilo",
-                    IdDepartamento = 3,
-                    CodigoBarras = "654753159875",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 500,
-                    Costo = 10,
-                    Precio = 28.9,
-                    PrecioMayoreo = 0,
-                    Ganancia = 18.9,
-                    Use_Inventory = true,
-                    InvMinima = 0,
-                    InvMaxima = 1000
-
-                });
-
-                products.Add(new Product()
-                {
-
-                    Descripcion = "Durazno por kilo",
-                    IdDepartamento = 3,
-                    CodigoBarras = "364751249876",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 500,
-                    Costo = 30,
-                    Precio = 49.9,
-                    PrecioMayoreo = 0,
-                    Ganancia = 19.9,
-                    Use_Inventory = true,
-                    InvMinima = 0,
-                    InvMaxima = 1000
-
-                });
-
-                products.Add(new Product()
-                {
-
-                    Descripcion = "Kiwi importado por kilo",
-                    IdDepartamento = 3,
-                    CodigoBarras = "457812967521",
-                    Unidad_Venta = "Unidad/Pza",
-                    Cantidad = 500,
-                    Costo = 30,
-                    Precio = 69,
-                    PrecioMayoreo = 0,
-                    Ganancia = 39,
-                    Use_Inventory = true,
-                    InvMinima = 0,
-                    InvMaxima = 100
 
                 });
                 dbCtx.Products.AddRange(products);
