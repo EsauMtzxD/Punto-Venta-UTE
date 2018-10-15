@@ -129,5 +129,34 @@ namespace Eleventa.BusinessLogicLayer
 
         }
 
+        public static DataTable Select_Inventario(string BarCode)
+        {
+
+            DataTable dt = new DataTable();
+
+            dt = DataAccessLayer.ProductDAL.Select_Inventario(BarCode);
+
+            return dt;
+
+        }
+
+        public static string Modificar_Inventario(Product p)
+        {
+
+            string msgError = string.Empty;
+
+            bool isSaved = DataAccessLayer.ProductDAL.Modificar_Inventario(p);
+
+            if(isSaved != true)
+            {
+
+                msgError = "\n \tEl Inventario no se Pudo Modificar";
+
+            }
+
+            return msgError;
+
+        }
+
     }
 }

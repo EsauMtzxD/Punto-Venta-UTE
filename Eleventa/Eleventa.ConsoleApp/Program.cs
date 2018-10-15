@@ -88,7 +88,28 @@ namespace Eleventa.ConsoleApp
 
                 case 3:
 
-                    //Inventario
+                    Inventario();
+
+                    do
+                    {
+                        Console.Clear();
+
+                        Console.WriteLine("\tDesea Realizar otra operacion?:\n" +
+                                        "\t1.- Si.\n" +
+                                        "\t2.- No.");
+
+                        Repetir_Ope = Convert.ToInt32(Console.ReadLine());
+
+                        if (Repetir_Ope >= 3 || Repetir_Ope < 1)
+                        {
+
+                            Console.WriteLine("\tPorfavor Eligar una de las opciones Mostradas :D");
+
+                        }
+
+                        Console.Clear();
+
+                    } while (Repetir_Ope == 1);
 
                     break;
 
@@ -674,19 +695,147 @@ namespace Eleventa.ConsoleApp
 
         #endregion
 
-        public static void Operacion_Inv()
+        #region Metodos de Invetario
+
+        public static void Inventario()
         {
 
-            //do
-            //{
+            DataTable dt = new DataTable(); Product p = new Product(); Product product = new Product();
+            string BarCode; int res, camp, mod; double pVenta;
 
-            //    Console.WriteLine("\t\n ///--- INVENTARIO ---\\\\t");
-            //    Console.WriteLine("\n\t Indicar la operacion que deseas realizar\n"
-            //        +"1.- Ver);
+            Console.Write("Ingresa el codigo de Barras: "); BarCode = Console.ReadLine().ToString().Trim();
+            product.CodigoBarras = BarCode;
+            try
+            {
 
-            //}
+                dt = BusinessLogicLayer.ProductBLL.Select_Inventario(BarCode);
+                p = BusinessLogicLayer.ProductBLL.Productos_Buscar(product);
+
+                if(p != null)
+                {
+
+                    foreach (DataRow item in dt.Rows)
+                    {
+
+                        Console.WriteLine("\t1.- Descripcion: {0}\n \t2.- Codigo de Barras: {1}\n \t3.- Costo: {2}\n \t4.- Precio: {3}\n \t5.- Cantidad: {4}\n \t6.- Inventario Minimo: {5}\n \t7.- Inventario Maximo: {6}\n",
+                            item["Descripcion"].ToString(), item["Codigo de Barras"].ToString(),
+                            item["Costo"].ToString(), item["Precio"].ToString(),
+                            item["Cantidad"].ToString(), item["Inventario Minimo"].ToString(), item["Inventario Maximo"].ToString());
+
+                    }
+
+                    do
+                    {
+
+                        Console.WriteLine("\nDeseas Modificar el Inventario?\n"
+                                            + "1.- Si\n"
+                                            + "2.- No");
+                        res = Convert.ToInt32(Console.ReadLine());
+
+                    } while (res > 2 || res < 1);
+
+                    do
+                    {
+
+                        Console.WriteLine("\nQue campo deseas Modificar?");
+                        camp = Convert.ToInt32(Console.ReadLine());
+
+                        switch (camp)
+                        {
+
+                            case 1:
+
+                                Console.Write("\nIngresa una nueva Descripcion: "); p.Descripcion = Console.ReadLine();
+
+                                break;
+
+                            case 2:
+
+                                Console.Write("\nIngresa un Nuevo codigo de Barras: "); p.CodigoBarras = Console.ReadLine();
+
+                                break;
+
+                            case 3:
+
+                                Console.Write("\nIngresa un nuevo Costo: "); p.Costo = Convert.ToDouble(Console.ReadLine());
+
+                                pVenta = p.Costo + (p.Costo * (p.Ganancia / 100));
+                                p.Precio = pVenta;
+
+                                break;
+
+                            case 4:
+
+                                Console.WriteLine("\nEl Precio se Modifica Automaticamente cuando se Modifica el Costo");
+
+                                pVenta = p.Costo + (p.Costo - (p.Ganancia / 100));
+                                p.Precio = pVenta;
+
+                                break;
+
+                            case 5:
+
+                                Console.Write("\nIngresa la nueva Cantidad actual del Producto: "); p.Cantidad = Convert.ToInt32(Console.ReadLine());
+
+                                break;
+
+                            case 6:
+
+                                Console.Write("\nIngresa el nuevo Inventario Minimo del Producto: "); p.InvMinima = Convert.ToInt32(Console.ReadLine());
+
+                                break;
+
+                            case 7:
+
+                                Console.Write("\nIngresa la nueva Cantidad Maxima del Producto: "); p.InvMaxima = Convert.ToInt32(Console.ReadLine());
+
+                                break;
+                        }
+
+                        Console.WriteLine("\nDeseas Modificar algun otro campo?\n"
+                            + "1.- Si\n"
+                            + "2.- No");
+                        mod = Convert.ToInt32(Console.ReadLine());
+
+                    } while (mod == 1);
+
+                    string msgError = BusinessLogicLayer.ProductBLL.Modificar_Inventario(p);
+
+                    if (string.IsNullOrEmpty(msgError))
+                    {
+
+                        Console.WriteLine("\n\t EL INVENTARIO SE MODIFICO EXITOSA MENTE :D");
+                        Console.ReadLine();
+
+                    }
+                    else
+                    {
+
+                        Console.WriteLine(msgError);
+                        Console.ReadLine();
+
+                    }
+
+                }
+                else
+                {
+
+                    Console.WriteLine("\n\t PRODUCTO NO ENCONTRADO :'(");
+                    Console.ReadLine();
+
+                }
+
+            }
+            catch(Exception ex)
+            {
+
+                Console.WriteLine(ex.Message.ToString());
+
+            }
 
         }
+
+        #endregion
 
     }
 }

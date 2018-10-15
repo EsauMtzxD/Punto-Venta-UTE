@@ -180,5 +180,86 @@ namespace Eleventa.DataAccessLayer
 
         }
 
+        public static DataTable Select_Inventario(string BarCode)
+        {
+
+            DataTable dt = new DataTable();
+
+            using(EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                var result = (from p in dbCtx.Products
+                              where p.CodigoBarras == BarCode 
+                              select new
+                              {
+
+                                  p.Descripcion,
+                                  p.CodigoBarras,
+                                  p.Costo,
+                                  p.Precio,
+                                  p.Cantidad,
+                                  p.InvMinima,
+                                  p.InvMaxima,
+
+                              }).ToList();
+
+                dt.Columns.AddRange(new DataColumn[]
+                {
+
+                    new DataColumn("Descripcion", typeof(string)),
+                    new DataColumn("Codigo de Barras", typeof(string)),
+                    new DataColumn("Costo", typeof(double)),
+                    new DataColumn("Precio", typeof(double)),
+                    new DataColumn("Cantidad", typeof(int)),
+                    new DataColumn("Inventario Minimo", typeof(int)),
+                    new DataColumn("Inventario Maximo", typeof(int))
+
+                });
+
+                result.ToList().ForEach(x =>
+                {
+
+                    var row = dt.NewRow();
+
+                    row["Descripcion"] = x.Descripcion;
+                    row["Codigo de Barras"] = x.CodigoBarras;
+                    row["Costo"] = x.Costo;
+                    row["Precio"] = x.Precio;
+                    row["Cantidad"] = x.Cantidad;
+                    row["Inventario Minimo"] = x.InvMinima;
+                    row["Inventario Maximo"] = x.InvMaxima;
+
+                    dt.Rows.Add(row);
+
+                });
+
+            }
+            return dt;
+        }
+
+        public static bool Modificar_Inventario(Product p)
+        {
+
+            bool isCheked = false;
+
+            using(EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                dbCtx.Entry(p).State = System.Data.Entity.EntityState.Modified;
+
+                int rowsAffected = dbCtx.SaveChanges();
+                if(rowsAffected >0)
+                {
+
+                    isCheked = true;
+
+                }
+
+            }
+
+            return isCheked;
+
+        }
+
     }
 }
