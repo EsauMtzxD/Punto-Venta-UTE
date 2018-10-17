@@ -18,41 +18,27 @@ namespace Eleventa.BusinessEntities
         public int Id { get; set; }
 
         /// <summary>
-        /// Es la cantidad de articulos que se estas vendiendo
-        /// </summary>
-        public int NumeroArticulos { get; set; }
+        /// Sucursal en la que se realizo la venta
+        /// </summary>  
+        [Required(ErrorMessage = "El campo Sucursal es obligatorio")]
+        public string Sucursal { get; set; }
 
         /// <summary>
-        /// Productos que se vendieron
+        /// Fecha en que se realizo la venta
         /// </summary>
-        [ForeignKey("Product")]
-        [Required(ErrorMessage = "Ingrese el campo IdProducto")]
-        public int IdProducto { get; set; }
-        public Product Product { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Fecha { get; set; }
 
         /// <summary>
-        /// El subtotal que tiene la venta
+        /// Importe total del la venta
         /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Subtotal")]
-        public double Subtotal { get; set; }
-
-        /// <summary>
-        /// Iva de la venta
-        /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Iva")]
-        public double Iva { get; set; }
-
-        /// <summary>
-        /// Cantidad total a pagar de la venta con Iva
-        /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Total")]
-        public double Total { get; set; }
-
+        [Required(ErrorMessage = "El campo Importe es obligatorio")]
+        public double Importe { get; set; }
 
         /// <summary>
         /// Cantidad que se esta pagando de la venta
         /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Pago")]
+        [Required(ErrorMessage = "El campo Pago es obligatorio")]
         public double Pago { get; set; }
 
         /// <summary>
@@ -70,12 +56,11 @@ namespace Eleventa.BusinessEntities
         public Employee Employee { get; set; }
 
         /// <summary>
-        /// Fecha en que se realizo la venta
+        /// La caja en que se combre la venta
         /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Fecha")]
-        [DataType(DataType.Date)]
-        public DateTime Fecha { get; set; }
+        public string Caja { get; set; }
 
+        public virtual ICollection<DetalleVenta> DetalleVentas { get; set; }
 
         public virtual ICollection<Cut> Cuts { get; set; }
 

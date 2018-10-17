@@ -90,7 +90,7 @@ namespace Eleventa.BusinessEntities
         [Required(ErrorMessage = "Ingrese el campo InvMaxima")]
         public int InvMaxima { get; set; }
 
-        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual ICollection<DetalleVenta> DetalleVentas { get; set; }
 
     }
 }

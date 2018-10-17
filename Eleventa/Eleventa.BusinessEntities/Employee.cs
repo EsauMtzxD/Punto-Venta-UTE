@@ -22,16 +22,6 @@ namespace Eleventa.BusinessEntities
         [Required(ErrorMessage = "El nombre del empleado es obligatorio")]
         public string Nombre { get; set; }
 
-        /// <summary>
-        /// puesto que tiene el empleado
-        /// </summary>
-        public string Puesto { get; set; }
-
-        /// <summary>
-        /// Caja en la que esta cobrando
-        /// </summary>
-        public string Caja { get; set; }
-
         public virtual ICollection<Sale> Sales { get; set; }
 
     }

@@ -23,6 +23,8 @@ namespace Eleventa.BusinessEntities
         public DbSet <Department> Departments { get; set; }
         public DbSet <Product> Products { get; set; }
         public DbSet <Sale> Sales { get; set; }
+        public DbSet <Employee> Employees { get; set; }
+        public DbSet<DetalleVenta> DetalleVentas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

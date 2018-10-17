@@ -82,16 +82,39 @@ namespace Eleventa.ConsoleApp
 
                 case 2:
 
-                    Ventas();
+                    do
+                    {
+
+                        Ventas();
+
+                        Console.Clear();
+
+                        Console.WriteLine("\tDesea Realizar otra operacion?:\n" +
+                                        "\t1.- Si.\n" +
+                                        "\t2.- No.");
+
+                        Repetir_Ope = Convert.ToInt32(Console.ReadLine());
+
+                        if (Repetir_Ope >= 3 || Repetir_Ope < 1)
+                        {
+
+                            Console.WriteLine("\tPorfavor Eligar una de las opciones Mostradas :D");
+
+                        }
+
+                        Console.Clear();
+
+                    } while (Repetir_Ope == 1);
 
                     break;
 
                 case 3:
 
-                    Inventario();
-
                     do
                     {
+
+                        Inventario();
+
                         Console.Clear();
 
                         Console.WriteLine("\tDesea Realizar otra operacion?:\n" +
@@ -842,7 +865,8 @@ namespace Eleventa.ConsoleApp
         public static void Ventas()
         {
 
-            DataTable dt = new DataTable();
+            Product p = new Product();
+            DataTable dt = new DataTable(); int resp, otherP;
 
             Console.WriteLine("\n\t!!!VENTAS¡¡¡");
             Console.WriteLine("\n---------- CATALOGO :D --------------\n");
@@ -856,6 +880,39 @@ namespace Eleventa.ConsoleApp
                     item["Id"].ToString(),item["Descripcion"].ToString(), item["Departamento"].ToString(), item["Precio $"].ToString());
 
             }
+
+            do
+            {
+
+                Console.WriteLine("\nDeseas Comprar algun Articulo?\n"
+                                     + "1.- Si\n"
+                                     + "2.- No");
+                resp = Convert.ToInt32(Console.ReadLine());
+
+                if(resp > 2 || resp < 1)
+                {
+
+                    Console.WriteLine("\t !!Porfavor Ingresa una de las Respuestas Mostradas¡¡");
+
+                }
+
+            } while (resp > 2 || resp < 1);
+
+             
+
+            do
+            {
+
+
+
+                Console.WriteLine("\nDeseas Agregar otro Producto?\n"
+                    + "1.- Si\n"
+                    + "2.- No");
+                otherP = Convert.ToInt32(Console.ReadLine());
+
+            } while (otherP == 1);
+
+            string msgError = string.Empty;
 
         }
 

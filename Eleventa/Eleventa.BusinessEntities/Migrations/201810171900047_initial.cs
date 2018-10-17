@@ -27,32 +27,33 @@ namespace Eleventa.BusinessEntities.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        NumeroArticulos = c.Int(nullable: false),
-                        IdProducto = c.Int(nullable: false),
-                        Subtotal = c.Double(nullable: false),
-                        Iva = c.Double(nullable: false),
-                        Total = c.Double(nullable: false),
+                        Sucursal = c.String(nullable: false, unicode: false),
+                        Fecha = c.DateTime(nullable: false, precision: 0),
+                        Importe = c.Double(nullable: false),
                         Pago = c.Double(nullable: false),
                         Cambio = c.Double(nullable: false),
                         IdEmpleado = c.Int(nullable: false),
-                        Fecha = c.DateTime(nullable: false, precision: 0),
+                        Caja = c.String(unicode: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Employee", t => t.IdEmpleado, cascadeDelete: true)
-                .ForeignKey("dbo.Product", t => t.IdProducto, cascadeDelete: true)
-                .Index(t => t.IdEmpleado)
-                .Index(t => t.IdProducto);
+                .Index(t => t.IdEmpleado);
             
             CreateTable(
-                "dbo.Employee",
+                "dbo.DetalleVenta",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false, unicode: false),
-                        Puesto = c.String(unicode: false),
-                        Caja = c.String(unicode: false),
+                        IdVenta = c.Int(nullable: false),
+                        IdProducto = c.Int(nullable: false),
+                        Cantidad = c.Int(nullable: false),
+                        Importe = c.Double(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Product", t => t.IdProducto, cascadeDelete: true)
+                .ForeignKey("dbo.Sale", t => t.IdVenta, cascadeDelete: true)
+                .Index(t => t.IdProducto)
+                .Index(t => t.IdVenta);
             
             CreateTable(
                 "dbo.Product",
@@ -86,21 +87,33 @@ namespace Eleventa.BusinessEntities.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.Employee",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(nullable: false, unicode: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Cut", "IdVenta", "dbo.Sale");
-            DropForeignKey("dbo.Sale", "IdProducto", "dbo.Product");
-            DropForeignKey("dbo.Product", "IdDepartamento", "dbo.Department");
             DropForeignKey("dbo.Sale", "IdEmpleado", "dbo.Employee");
+            DropForeignKey("dbo.DetalleVenta", "IdVenta", "dbo.Sale");
+            DropForeignKey("dbo.DetalleVenta", "IdProducto", "dbo.Product");
+            DropForeignKey("dbo.Product", "IdDepartamento", "dbo.Department");
             DropIndex("dbo.Cut", new[] { "IdVenta" });
-            DropIndex("dbo.Sale", new[] { "IdProducto" });
-            DropIndex("dbo.Product", new[] { "IdDepartamento" });
             DropIndex("dbo.Sale", new[] { "IdEmpleado" });
+            DropIndex("dbo.DetalleVenta", new[] { "IdVenta" });
+            DropIndex("dbo.DetalleVenta", new[] { "IdProducto" });
+            DropIndex("dbo.Product", new[] { "IdDepartamento" });
+            DropTable("dbo.Employee");
             DropTable("dbo.Department");
             DropTable("dbo.Product");
-            DropTable("dbo.Employee");
+            DropTable("dbo.DetalleVenta");
             DropTable("dbo.Sale");
             DropTable("dbo.Cut");
         }
