@@ -13,7 +13,7 @@ namespace Eleventa.BusinessEntities.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201810171900047_initial"; }
+            get { return "201810191734393_initial"; }
         }
         
         string IMigrationMetadata.Source

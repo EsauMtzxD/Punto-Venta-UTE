@@ -36,24 +36,9 @@ namespace Eleventa.BusinessEntities
         public double Importe { get; set; }
 
         /// <summary>
-        /// Cantidad que se esta pagando de la venta
+        /// Cantidad de articulos comprados
         /// </summary>
-        [Required(ErrorMessage = "El campo Pago es obligatorio")]
-        public double Pago { get; set; }
-
-        /// <summary>
-        /// Cantidad a regresar al cliente 
-        /// </summary>
-        [Required(ErrorMessage = "Ingrese el campo Cambio")]
-        public double Cambio { get; set; }
-
-        /// <summary>
-        /// Empleado que esta surtiendo
-        /// </summary>
-        [ForeignKey("Employee")]
-        [Required(ErrorMessage = "El campo IdEmpleado es obligatorio")]
-        public int IdEmpleado { get; set; }
-        public Employee Employee { get; set; }
+        public int QuantityOfItems { get; set; }
 
         /// <summary>
         /// La caja en que se combre la venta

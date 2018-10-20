@@ -59,10 +59,9 @@
     <Compile Include="Department.cs" />
     <Compile Include="DetalleVenta.cs" />
     <Compile Include="EleventaDbContext.cs" />
-    <Compile Include="Employee.cs" />
-    <Compile Include="Migrations\201810171900047_initial.cs" />
-    <Compile Include="Migrations\201810171900047_initial.Designer.cs">
-      <DependentUpon>201810171900047_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201810191734393_initial.cs" />
+    <Compile Include="Migrations\201810191734393_initial.Designer.cs">
+      <DependentUpon>201810191734393_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Product.cs" />
@@ -75,8 +74,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201810171900047_initial.resx">
-      <DependentUpon>201810171900047_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201810191734393_initial.resx">
+      <DependentUpon>201810191734393_initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

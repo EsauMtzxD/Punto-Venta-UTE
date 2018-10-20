@@ -30,14 +30,10 @@ namespace Eleventa.BusinessEntities.Migrations
                         Sucursal = c.String(nullable: false, unicode: false),
                         Fecha = c.DateTime(nullable: false, precision: 0),
                         Importe = c.Double(nullable: false),
-                        Pago = c.Double(nullable: false),
-                        Cambio = c.Double(nullable: false),
-                        IdEmpleado = c.Int(nullable: false),
+                        QuantityOfItems = c.Int(nullable: false),
                         Caja = c.String(unicode: false),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Employee", t => t.IdEmpleado, cascadeDelete: true)
-                .Index(t => t.IdEmpleado);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.DetalleVenta",
@@ -87,30 +83,18 @@ namespace Eleventa.BusinessEntities.Migrations
                     })
                 .PrimaryKey(t => t.Id);
             
-            CreateTable(
-                "dbo.Employee",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(nullable: false, unicode: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.Cut", "IdVenta", "dbo.Sale");
-            DropForeignKey("dbo.Sale", "IdEmpleado", "dbo.Employee");
             DropForeignKey("dbo.DetalleVenta", "IdVenta", "dbo.Sale");
             DropForeignKey("dbo.DetalleVenta", "IdProducto", "dbo.Product");
             DropForeignKey("dbo.Product", "IdDepartamento", "dbo.Department");
             DropIndex("dbo.Cut", new[] { "IdVenta" });
-            DropIndex("dbo.Sale", new[] { "IdEmpleado" });
             DropIndex("dbo.DetalleVenta", new[] { "IdVenta" });
             DropIndex("dbo.DetalleVenta", new[] { "IdProducto" });
             DropIndex("dbo.Product", new[] { "IdDepartamento" });
-            DropTable("dbo.Employee");
             DropTable("dbo.Department");
             DropTable("dbo.Product");
             DropTable("dbo.DetalleVenta");

@@ -310,6 +310,37 @@ namespace Eleventa.DataAccessLayer
             }
 
             return dt;
+
+        }
+
+        public static Product findProdoductByBarCode(string barCode)
+        {
+
+            Product p = null;
+
+            using(EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                p = dbCtx.Products.Where(x => x.CodigoBarras == barCode).SingleOrDefault();
+            }
+
+            return p;
+        }
+
+        public static int getProductIdByCodeBar(string codBar)
+        {
+
+            int ProductId = 0;
+
+            using(EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                ProductId = dbCtx.Products.Where(x => x.CodigoBarras == codBar).First().Id;
+
+            }
+
+            return ProductId;
+
         }
 
     }

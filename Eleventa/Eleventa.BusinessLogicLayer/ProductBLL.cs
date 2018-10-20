@@ -169,5 +169,21 @@ namespace Eleventa.BusinessLogicLayer
 
         }
 
+        public static Product findProdoductByBarCode(string CodBar)
+        {
+
+            Product p = null;
+
+            return p = DataAccessLayer.ProductDAL.findProdoductByBarCode(CodBar);
+
+        }
+
+        public static int getProductIdByCodeBar(string codBar)
+        {
+
+            return DataAccessLayer.ProductDAL.getProductIdByCodeBar(codBar);
+
+        }
+
     }
 }

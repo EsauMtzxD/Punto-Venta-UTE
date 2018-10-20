@@ -11,132 +11,109 @@ namespace Eleventa.ConsoleApp
     public class Program
     {
 
-        public static int Categoria, Operacion, Repetir_Ope = 0;
+        static int quantityOfItems = 0;
+        static double subtotal = 0;
+        static double iva = 0;
+        static double total = 0;
+
+        public static int Categoria, Operacion, Repetir_Ope = 0, res;
 
         public static void Main(string[] args)
         {
 
-            Identificar_Categoria();
+            DataTable dtShoopping = new DataTable();
 
-            switch (Categoria)
+            do
             {
 
-                #region Productos
-                case 1:
+                Console.Clear();
 
-                    Console.Clear();
+                Identificar_Categoria();
 
-                    do
-                    {
+                switch (Categoria)
+                {
 
-                        Operacion_Realizar();
+                    #region Productos
+                    case 1:
 
+                        Console.Clear();
 
-                        switch (Operacion)
+                        do
                         {
 
-                            case 1:
+                            Operacion_Realizar();
 
-                                Console.Clear();
 
-                                Nuevo_Producto();
+                            switch (Operacion)
+                            {
 
-                                break;
+                                case 1:
 
-                            case 2:
+                                    Console.Clear();
 
-                                Console.Clear();
+                                    Nuevo_Producto();
+
+                                    break;
+
+                                case 2:
+
+                                    Console.Clear();
                                     Modificar_Producto();
 
-                                break;
+                                    break;
 
-                            case 3:
+                                case 3:
 
-                                Console.Clear();
+                                    Console.Clear();
 
-                                Eliminar_Producto();
+                                    Eliminar_Producto();
 
-                                break;
-                        }
+                                    break;
+                            }
 
-                        Console.Clear();
+                            Console.Clear();
 
-                        Console.WriteLine("\tDesea Realizar otra operacion?:\n" +
-                                        "\t1.- Si.\n" +
-                                        "\t2.- No.");
+                            Console.WriteLine("\tDesea Realizar otra operacion?:\n" +
+                                            "\t1.- Si.\n" +
+                                            "\t2.- No.");
 
-                        Repetir_Ope = Convert.ToInt32(Console.ReadLine());
+                            Repetir_Ope = Convert.ToInt32(Console.ReadLine());
 
-                        if(Repetir_Ope >= 3 || Repetir_Ope < 1)
-                        {
+                            if (Repetir_Ope >= 3 || Repetir_Ope < 1)
+                            {
 
-                            Console.WriteLine("\tPorfavor Eligar una de las opciones Mostradas :D");
+                                Console.WriteLine("\tPorfavor Eligar una de las opciones Mostradas :D");
 
-                        }
+                            }
 
-                        Console.Clear();
+                            Console.Clear();
 
-                    } while (Repetir_Ope == 1);
-                    break;
-                #endregion
+                        } while (Repetir_Ope == 1);
+                        break;
+                    #endregion
 
-                case 2:
+                    case 2:
 
-                    do
-                    {
+                        updateColums(dtShoopping);
 
-                        Ventas();
+                            Ventas(dtShoopping);
 
-                        Console.Clear();
+                        break;
 
-                        Console.WriteLine("\tDesea Realizar otra operacion?:\n" +
-                                        "\t1.- Si.\n" +
-                                        "\t2.- No.");
+                    case 3:
 
-                        Repetir_Ope = Convert.ToInt32(Console.ReadLine());
+                            Inventario();
 
-                        if (Repetir_Ope >= 3 || Repetir_Ope < 1)
-                        {
+                        break;
 
-                            Console.WriteLine("\tPorfavor Eligar una de las opciones Mostradas :D");
+                }
 
-                        }
+                Console.WriteLine("Desea Hacer otra cosa?\n"
+                    +"1.- Si\n"
+                    +"2.- No");
+                res = Convert.ToInt32(Console.ReadLine());
 
-                        Console.Clear();
-
-                    } while (Repetir_Ope == 1);
-
-                    break;
-
-                case 3:
-
-                    do
-                    {
-
-                        Inventario();
-
-                        Console.Clear();
-
-                        Console.WriteLine("\tDesea Realizar otra operacion?:\n" +
-                                        "\t1.- Si.\n" +
-                                        "\t2.- No.");
-
-                        Repetir_Ope = Convert.ToInt32(Console.ReadLine());
-
-                        if (Repetir_Ope >= 3 || Repetir_Ope < 1)
-                        {
-
-                            Console.WriteLine("\tPorfavor Eligar una de las opciones Mostradas :D");
-
-                        }
-
-                        Console.Clear();
-
-                    } while (Repetir_Ope == 1);
-
-                    break;
-
-            }
+            } while (res == 1);
 
             Console.ReadKey();
 
@@ -375,7 +352,7 @@ namespace Eleventa.ConsoleApp
 
             Console.WriteLine("\n");
             Console.WriteLine("-----Eliminar-----\n");
-            Console.WriteLine("Ingresa el Codifo de Barras que quieres Eliminar"); p.CodigoBarras = Console.ReadLine().ToString().Trim();
+            Console.WriteLine("Ingresa el Codigo de Barras que quieres Eliminar"); p.CodigoBarras = Console.ReadLine().ToString().Trim();
             
             try
             {
@@ -757,85 +734,90 @@ namespace Eleventa.ConsoleApp
 
                     } while (res > 2 || res < 1);
 
-                    do
+                    if (res == 1)
                     {
 
-                        Console.WriteLine("\nQue campo deseas Modificar?");
-                        camp = Convert.ToInt32(Console.ReadLine());
-
-                        switch (camp)
+                        do
                         {
 
-                            case 1:
+                            Console.WriteLine("\nQue campo deseas Modificar?");
+                            camp = Convert.ToInt32(Console.ReadLine());
 
-                                Console.Write("\nIngresa una nueva Descripcion: "); p.Descripcion = Console.ReadLine();
+                            switch (camp)
+                            {
 
-                                break;
+                                case 1:
 
-                            case 2:
+                                    Console.Write("\nIngresa una nueva Descripcion: "); p.Descripcion = Console.ReadLine();
 
-                                Console.Write("\nIngresa un Nuevo codigo de Barras: "); p.CodigoBarras = Console.ReadLine();
+                                    break;
 
-                                break;
+                                case 2:
 
-                            case 3:
+                                    Console.Write("\nIngresa un Nuevo codigo de Barras: "); p.CodigoBarras = Console.ReadLine();
 
-                                Console.Write("\nIngresa un nuevo Costo: "); p.Costo = Convert.ToDouble(Console.ReadLine());
+                                    break;
 
-                                pVenta = p.Costo + (p.Costo * (p.Ganancia / 100));
-                                p.Precio = pVenta;
+                                case 3:
 
-                                break;
+                                    Console.Write("\nIngresa un nuevo Costo: "); p.Costo = Convert.ToDouble(Console.ReadLine());
 
-                            case 4:
+                                    pVenta = p.Costo + (p.Costo * (p.Ganancia / 100));
+                                    p.Precio = pVenta;
 
-                                Console.WriteLine("\nEl Precio se Modifica Automaticamente cuando se Modifica el Costo");
+                                    break;
 
-                                pVenta = p.Costo + (p.Costo - (p.Ganancia / 100));
-                                p.Precio = pVenta;
+                                case 4:
 
-                                break;
+                                    Console.WriteLine("\nEl Precio se Modifica Automaticamente cuando se Modifica el Costo");
 
-                            case 5:
+                                    pVenta = p.Costo + (p.Costo - (p.Ganancia / 100));
+                                    p.Precio = pVenta;
 
-                                Console.Write("\nIngresa la nueva Cantidad actual del Producto: "); p.Cantidad = Convert.ToInt32(Console.ReadLine());
+                                    break;
 
-                                break;
+                                case 5:
 
-                            case 6:
+                                    Console.Write("\nIngresa la nueva Cantidad actual del Producto: "); p.Cantidad = Convert.ToInt32(Console.ReadLine());
 
-                                Console.Write("\nIngresa el nuevo Inventario Minimo del Producto: "); p.InvMinima = Convert.ToInt32(Console.ReadLine());
+                                    break;
 
-                                break;
+                                case 6:
 
-                            case 7:
+                                    Console.Write("\nIngresa el nuevo Inventario Minimo del Producto: "); p.InvMinima = Convert.ToInt32(Console.ReadLine());
 
-                                Console.Write("\nIngresa la nueva Cantidad Maxima del Producto: "); p.InvMaxima = Convert.ToInt32(Console.ReadLine());
+                                    break;
 
-                                break;
+                                case 7:
+
+                                    Console.Write("\nIngresa la nueva Cantidad Maxima del Producto: "); p.InvMaxima = Convert.ToInt32(Console.ReadLine());
+
+                                    break;
+                            }
+
+                            Console.WriteLine("\nDeseas Modificar algun otro campo?\n"
+                                + "1.- Si\n"
+                                + "2.- No");
+                            mod = Convert.ToInt32(Console.ReadLine());
+
+                        } while (mod == 1);
+
+                        string msgError = BusinessLogicLayer.ProductBLL.Modificar_Inventario(p);
+
+                        if (string.IsNullOrEmpty(msgError))
+                        {
+
+                            Console.WriteLine("\n\t EL INVENTARIO SE MODIFICO EXITOSA MENTE :D");
+                            Console.ReadLine();
+
                         }
+                        else
+                        {
 
-                        Console.WriteLine("\nDeseas Modificar algun otro campo?\n"
-                            + "1.- Si\n"
-                            + "2.- No");
-                        mod = Convert.ToInt32(Console.ReadLine());
+                            Console.WriteLine(msgError);
+                            Console.ReadLine();
 
-                    } while (mod == 1);
-
-                    string msgError = BusinessLogicLayer.ProductBLL.Modificar_Inventario(p);
-
-                    if (string.IsNullOrEmpty(msgError))
-                    {
-
-                        Console.WriteLine("\n\t EL INVENTARIO SE MODIFICO EXITOSA MENTE :D");
-                        Console.ReadLine();
-
-                    }
-                    else
-                    {
-
-                        Console.WriteLine(msgError);
-                        Console.ReadLine();
+                        }
 
                     }
 
@@ -862,29 +844,33 @@ namespace Eleventa.ConsoleApp
 
         #region Ventas
 
-        public static void Ventas()
+        public static void Ventas(DataTable dt)
         {
 
-            Product p = new Product();
-            DataTable dt = new DataTable(); int resp, otherP;
+            Console.Clear();
 
-            Console.WriteLine("\n\t!!!VENTAS¡¡¡");
-            Console.WriteLine("\n---------- CATALOGO :D --------------\n");
+            Product p = new Product(); string CodBar = string.Empty; int resp, otherP;
 
-            dt = BusinessLogicLayer.ProductBLL.Catalogo();
-
-            foreach (DataRow item in dt.Rows)
-            {
-
-                Console.WriteLine("\t1.- Id: {0}\n \t2.- Descripcion: {1}\n \t3.- Departamento: {2}\n \t4.- Precio: {3}\n",
-                    item["Id"].ToString(),item["Descripcion"].ToString(), item["Departamento"].ToString(), item["Precio $"].ToString());
-
-            }
+            Console.WriteLine("=================================================================================================");
+            Console.WriteLine(" ||\t\t\t\t\t\t!!!VENTAS¡¡¡\t\t\t\t\t\t||");
+            Console.WriteLine("=================================================================================================");
 
             do
             {
 
-                Console.WriteLine("\nDeseas Comprar algun Articulo?\n"
+                Console.Clear();
+
+                Console.Write("\nCodigo de Barras:"); CodBar = Console.ReadLine();
+
+                findProdoductByBarCode(CodBar, dt);
+
+                ExtensionDataTable.PrintToConsole(dt);
+
+                Console.WriteLine("\n");
+
+                printFooter();
+
+                Console.WriteLine("\nDeseas Comprar otro Articulo?\n"
                                      + "1.- Si\n"
                                      + "2.- No");
                 resp = Convert.ToInt32(Console.ReadLine());
@@ -896,23 +882,156 @@ namespace Eleventa.ConsoleApp
 
                 }
 
-            } while (resp > 2 || resp < 1);
+            } while (resp == 1);
 
-             
-
-            do
+            if (resp == 2)
             {
 
+                Console.Clear();
+
+                string msgError = string.Empty;
+
+                Sale sale = new Sale();
+
+                sale.Sucursal = "Apodaca Centro";
+                sale.Fecha = DateTime.Now;
+                sale.Importe = total;
+                sale.QuantityOfItems = quantityOfItems;
+                sale.Caja = "Default";
+
+                msgError = BusinessLogicLayer.SaleBLL.insertSale(sale);
+
+                if (string.IsNullOrEmpty(msgError))
+                {
+
+                    //Obtener el Ultimo registro actualizado de la Clase SALE
+                    int saleId = BusinessLogicLayer.SaleBLL.getLastRegister();
+                    
+                    //Validar si obtuvimos una id de la clase Sale 
+                    if(saleId > 0)
+                    {
+
+                        //Insertar los datos dentro de la Tabla DetalleVenta
+                        foreach(DataRow row in dt.Rows)
+                        {
+
+                            DetalleVenta detalleVenta = new DetalleVenta();
+
+                            detalleVenta.IdVenta = saleId;
+                            detalleVenta.IdProducto = Convert.ToInt32(BusinessLogicLayer.ProductBLL.getProductIdByCodeBar(row["Codigo_Barras"].ToString()));
+                            detalleVenta.Cantidad = Convert.ToInt32(row["CANTIDAD"].ToString());
+                            detalleVenta.Importe = Convert.ToDouble(row["Precio_Unitario"].ToString());
+
+                            //Una ves Agregado los datos al objeto detalleventa entonces se van a insertar a la tabla
+
+                            bool isCheked = BusinessLogicLayer.DetalleVentaBLL.insertDetalleVenta(detalleVenta);
+
+                            if (isCheked)
+                            {
+
+                                Console.WriteLine("\n\tGRACIAS POR SU COMPRA, VUELVA PRONTO");
+
+                            }
 
 
-                Console.WriteLine("\nDeseas Agregar otro Producto?\n"
-                    + "1.- Si\n"
-                    + "2.- No");
-                otherP = Convert.ToInt32(Console.ReadLine());
+                        }
 
-            } while (otherP == 1);
 
-            string msgError = string.Empty;
+                    }
+
+                }
+                else
+                {
+
+                    Console.WriteLine(msgError);
+                    Console.ReadLine();
+
+                }
+
+            }
+
+        }
+
+        public static void printFooter()
+        {
+
+            DataTable dtFooter = new DataTable();
+
+            dtFooter.Columns.AddRange(new DataColumn[]
+            {
+
+                new DataColumn("TIPO_PAGO", typeof(string)),
+                new DataColumn("CANTIDAD_ARTICULOS", typeof(int)),
+                new DataColumn("SUBTOTAL", typeof(string)),
+                new DataColumn("IVA", typeof(string)),
+                new DataColumn("TOTAL", typeof(string))
+
+            });
+
+            var row = dtFooter.NewRow();
+
+            row["TIPO_PAGO"] = "EFECTIVO";
+            row["CANTIDAD_ARTICULOS"] = quantityOfItems;
+            row["SUBTOTAL"] = "$ " + subtotal;
+            row["IVA"] = "$ " + iva;
+            row["TOTAL"] = "$ " + total;
+
+            dtFooter.Rows.Add(row);
+
+            ExtensionDataTable.PrintToConsole(dtFooter);
+
+
+        }
+
+        public static void findProdoductByBarCode(string barCode, DataTable dt)
+        {
+
+            Product p = new Product();
+
+            p = BusinessLogicLayer.ProductBLL.findProdoductByBarCode(barCode);
+
+            if(p != null)
+            {
+
+                var row = dt.NewRow();
+
+                row["Codigo_Barras"] = p.CodigoBarras;
+                row["Descripcion"] = p.Descripcion;
+                row["CANTIDAD"] = 1;
+                row["Precio_Unitario"] = p.Precio;
+                row["Importe"] = (p.Precio * .16) + p.Precio;
+
+                dt.Rows.Add(row);
+
+                quantityOfItems = quantityOfItems + 1;
+                subtotal = subtotal + Convert.ToDouble(row["Precio_Unitario"].ToString());
+                iva = iva + Convert.ToDouble(row["Precio_Unitario"]) * .16;
+                total = total + Convert.ToDouble(row["Importe"].ToString());
+
+            }
+            else
+            {
+
+                Console.WriteLine("\n\tNose encontro el producto");
+                Console.ReadLine();
+
+            }
+
+        }
+
+        public static void updateColums(DataTable dt)
+        {
+
+            dt.Columns.AddRange(new DataColumn[]
+{
+
+                    new DataColumn("Codigo_Barras", typeof(string)),
+                    new DataColumn("Descripcion", typeof(string)),
+                    new DataColumn("CANTIDAD", typeof(string)),
+                    new DataColumn("Precio_Unitario", typeof(double)),
+                    new DataColumn("Importe", typeof(double))
+
+            });
 
         }
 
