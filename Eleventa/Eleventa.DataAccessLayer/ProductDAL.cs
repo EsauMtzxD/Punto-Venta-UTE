@@ -26,10 +26,13 @@ namespace Eleventa.DataAccessLayer
             using(EleventaDbContext dbCtx = new EleventaDbContext())
             {
 
+                //Linea que esta ingresando los datos a la Table de la BD
                 dbCtx.Products.Add(p);
 
+                // Linea que guarda las lineas afectadas cuando se guarda los cambios
                 int rowsAffected = dbCtx.SaveChanges();
 
+                // Si hay mas de 0 lineas afectadas entonces regresara un tru
                 if(rowsAffected > 0)
                 {
 
@@ -128,33 +131,50 @@ namespace Eleventa.DataAccessLayer
 
         }
 
+        /// <summary>
+        /// Metodo el cual estara eliminando el Producto en por medio de LINQ
+        /// </summary>
+        /// <param name="Bar"></param>
+        /// <returns></returns>
         public static bool EliminarProducto(string Bar)
         {
 
+            // Variable bool el cual estara regresando el metodo
             bool isSaved = false;
 
             using(EleventaDbContext dbCtx = new EleventaDbContext())
             {
 
+                // Colsulta el cual estara trayendo todo la fila de la tabla segun el codigo de baras
                 var result = dbCtx.Products.Where(x => x.CodigoBarras == Bar).FirstOrDefault();
 
+                // Linea el que estara eliminaod toda la fila antes traida 
                 dbCtx.Products.Remove(result);
 
+                // Guardar si hay filas afectadas al tiempo de guardar los cambios
                 int rowsAffected = dbCtx.SaveChanges();
 
+                // Si las lineas afectadas es mayor a cero entonces regresara un true
                 if(rowsAffected > 0)
                 {
 
+                    // y pasar la variable bool antes declarada a true
                     isSaved = true;
 
                 }
 
             }
 
+            // y retornar la variable
             return isSaved;
 
         }
 
+        /// <summary>
+        /// Metodo que Modifica el producto
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static bool Modificar_Producto(Product p)
         {
 
@@ -163,13 +183,17 @@ namespace Eleventa.DataAccessLayer
             using (EleventaDbContext dbCtx = new EleventaDbContext())
             {
 
+                // Linea que esta guardando los datos traidos que antes guardamos
                 dbCtx.Entry(p).State = System.Data.Entity.EntityState.Modified;
 
+                // Guardar si hubo lineas afectadas al tiempo de estar guardando los datos
                 int rowsAffected = dbCtx.SaveChanges();
 
+                // Si las lineas afectadas es mayor a 0 entonces el metodo regresara un tru
                 if(rowsAffected > 0)
                 {
 
+                    // Pasar la variable bool a true para que este lo pueda retornar
                     isSaved = true;
 
                 }
@@ -237,17 +261,28 @@ namespace Eleventa.DataAccessLayer
             return dt;
         }
 
+        /// <summary>
+        /// Metodo para modificar el inventario
+        /// </summary>
+        /// <param name="p">Objeto con los datos a modificar</param>
+        /// <returns>true si se pudo modificar, false si no se pudo modificar</returns>
         public static bool Modificar_Inventario(Product p)
         {
 
+            //Variable a regresar
             bool isCheked = false;
 
             using(EleventaDbContext dbCtx = new EleventaDbContext())
             {
 
+                // Linea para guardar los datos a modificar
                 dbCtx.Entry(p).State = System.Data.Entity.EntityState.Modified;
 
+                // Guardar las lineas afectadas a guardar los cambios
                 int rowsAffected = dbCtx.SaveChanges();
+
+                // Si las lineas afectadas es mayor a 0 entonces el metodo retornara un true
+                // Pero si es 0 entonces retornara un false
                 if(rowsAffected >0)
                 {
 
@@ -313,6 +348,11 @@ namespace Eleventa.DataAccessLayer
 
         }
 
+        /// <summary>
+        /// Metodo para encontrar el producto mediante el codigo de barras
+        /// </summary>
+        /// <param name="barCode">Codigo de barras a buscar el producto</param>
+        /// <returns></returns>
         public static Product findProdoductByBarCode(string barCode)
         {
 
@@ -321,9 +361,12 @@ namespace Eleventa.DataAccessLayer
             using(EleventaDbContext dbCtx = new EleventaDbContext())
             {
 
+                // Consulta para traer los datos del producto
                 p = dbCtx.Products.Where(x => x.CodigoBarras == barCode).SingleOrDefault();
+
             }
 
+            //Retornar el producto
             return p;
         }
 

@@ -124,6 +124,10 @@ namespace Eleventa.ConsoleApp
 
 
         #region Identifar la Categoria
+        /// <summary>
+        /// Metodo Simple para identificar las opciones del usuario
+        /// </summary>
+        /// <returns></returns>
         public static int Identificar_Categoria()
         {
 
@@ -154,6 +158,10 @@ namespace Eleventa.ConsoleApp
         #region Metodos de Productos
 
         #region Identificar la Operacion en Productos
+        /// <summary>
+        /// Metodo simple para observar las operaciones que se pueden hacer en la categoria de producto
+        /// </summary>
+        /// <returns></returns>
         public static int Operacion_Realizar()
         {
 
@@ -184,13 +192,18 @@ namespace Eleventa.ConsoleApp
         #endregion
 
         #region Agregar Nuevo Producto
+        /// <summary>
+        /// Metodo para ir ingresando los datos a la BD en la Tabla Producto
+        /// </summary>
         public static void Nuevo_Producto()
         {
 
             int cVen, Inv; bool isCheked = false;
 
+            // Data Table para mostrar los Departamentos Existentes
             DataTable dt = new DataTable();
 
+            // Crear un Objeto de tipo producto para in guardando los datos a ingresar
             Product p = new Product();
 
             Console.WriteLine("\n");
@@ -202,6 +215,7 @@ namespace Eleventa.ConsoleApp
 
             Console.WriteLine("Los Departamentos son:");
 
+            // FOREACH que ira recorrendo el Data Table y Mostrando los datos que tiene la Entidad
             foreach (DataRow item in dt.Rows)
             {
 
@@ -319,11 +333,15 @@ namespace Eleventa.ConsoleApp
 
                 }
 
+                // Llamar el Metodo de la CLASE PRODUCTBLL e ingresando el objeto producto que creamos antes
                 string msgError = BusinessLogicLayer.ProductBLL.NuevoProducto(p);
 
+                // Validar si el  mensaje de error esta vacio o es nulo
                 if (string.IsNullOrEmpty(msgError))
                 {
 
+                    // Si esta vacio o es nulo entonces mostrara un mensaje que dija que si
+                    // Se guardao los datos correctamente
                     Console.Write("\n\tSe inserto el Producto correctamente");
                     Console.ReadLine();
 
@@ -331,6 +349,7 @@ namespace Eleventa.ConsoleApp
                 else
                 {
 
+                    //Y sii el mensaje no esta vacio entonces mostrar el mensaje
                     Console.WriteLine(msgError);
 
                 }
@@ -346,6 +365,9 @@ namespace Eleventa.ConsoleApp
         #endregion
 
         #region Eliminar Producto
+        /// <summary>
+        /// Metodo para Eliminar los datos de la BD
+        /// </summary>
         public static void Eliminar_Producto()
         {
 
@@ -359,7 +381,10 @@ namespace Eleventa.ConsoleApp
             try
             {
 
+                // Traer todos los datos de la tabla Producto
                 dt = BusinessLogicLayer.ProductBLL.Productos(p.CodigoBarras);
+                // Traer todos los datos de la tabla producto y guardalos en la clase producto
+                // Para poder hacer una validacion
                 p = BusinessLogicLayer.ProductBLL.Productos_Buscar(p);
 
                 if(p != null)
@@ -385,6 +410,8 @@ namespace Eleventa.ConsoleApp
                     if (delete == 1)
                     {
 
+                        // Llamar el metodo de la clase ProductoBLL y agregar como parametro el codigo de barras
+                        // El cual se estara eliminado
                         string msgError = BusinessLogicLayer.ProductBLL.Eliminar_Producto(p.CodigoBarras);
 
                         if (string.IsNullOrEmpty(msgError))
@@ -404,6 +431,8 @@ namespace Eleventa.ConsoleApp
                 else
                 {
 
+                    // Si no hay nada en el objeto producto entonces mandar un mensaje
+                    // de que no se encontro el producto
                     Console.WriteLine("\n\tPRODUCTO NO ENCONTRADO!!! :'( ");
                     Console.ReadLine();
 
@@ -422,6 +451,9 @@ namespace Eleventa.ConsoleApp
 
         #region Modificar Producto
 
+        /// <summary>
+        /// Metodo para modficiar el Producto
+        /// </summary>
         public static void Modificar_Producto()
         {
 
@@ -440,15 +472,18 @@ namespace Eleventa.ConsoleApp
             try
             {
 
+                // Trar el datos de la tabla segun el codigo de barras ingresado
                 dt = BusinessLogicLayer.ProductBLL.Productos(barcode);
+                // Guardar los tados en un objeto de la clase porduct para porder hacer una validacion
                 p = BusinessLogicLayer.ProductBLL.Productos_Buscar(old);
 
+                //Si el objeto es difetente de nulo entonces podra realizar la operacion
                 if (p != null)
                 {
 
                     Console.WriteLine("\nEste el es Producto que deseas modificar?...");
 
-
+                    // Foreach que ira recorriendo el datatable e ira imprimiendo los datos que contiene
                     foreach (DataRow item in dt.Rows)
                     {
 
@@ -503,8 +538,11 @@ namespace Eleventa.ConsoleApp
 
                                     Console.WriteLine("\nLos Departamentos son...");
 
+                                    // Traer los departamentos en un data table
                                     dep = BusinessLogicLayer.DepartmentBLL.Departamentos();
 
+                                    // Foreach que esta rocorrendo el data table donde guardamos los departamentos
+                                    // E ira imprimiendo todos los datos que contiene
                                     foreach (DataRow item in dep.Rows)
                                     {
 
@@ -657,8 +695,12 @@ namespace Eleventa.ConsoleApp
 
                         } while (mod == 1);
 
+                        // Traer el mensaje de error de la clase ProductoBLL el cual valida si el producto
+                        // se puedo modificar
                         string msgError = BusinessLogicLayer.ProductBLL.Modificar_Producto(p);
 
+                        // Si el mensaje esta nulo o vacio entonces mandara un mensaje de operacion
+                        // Realizada con exito
                         if (string.IsNullOrEmpty(msgError))
                         {
 
@@ -666,9 +708,11 @@ namespace Eleventa.ConsoleApp
                             Console.ReadLine();
 
                         }
+                        // Pero si no esta vacio
                         else
                         {
 
+                            // Mostrara el mensaje de error traido
                             Console.WriteLine(msgError);
 
                         }
@@ -676,9 +720,11 @@ namespace Eleventa.ConsoleApp
                     }
 
                 }
+                // Pero si el objeto es nulo
                 else
                 {
 
+                    //Entonces madara un mensaje el cual este diciento que el producto no se encontro
                     Console.WriteLine("\n\t PRODUCTO NO ENCONTRADO :'(");
                     Console.ReadLine();
 
@@ -698,7 +744,9 @@ namespace Eleventa.ConsoleApp
         #endregion
 
         #region Metodos de Invetario
-
+        /// <summary>
+        /// Metodo para checar el inventario del producto
+        /// </summary>
         public static void Inventario()
         {
 
@@ -710,12 +758,16 @@ namespace Eleventa.ConsoleApp
             try
             {
 
+                // Data table el cual estemos guardando los datos del inventario
                 dt = BusinessLogicLayer.ProductBLL.Select_Inventario(BarCode);
+                // Guardar los datos traidos del data table en un objeto de tipo product
                 p = BusinessLogicLayer.ProductBLL.Productos_Buscar(product);
 
+                //Si el bojeto es difetente de nulo entonces podra realizar la operacion
                 if(p != null)
                 {
 
+                    // Foreach que ira recorriendo el data table y mostrar los datos
                     foreach (DataRow item in dt.Rows)
                     {
 
@@ -804,8 +856,10 @@ namespace Eleventa.ConsoleApp
 
                         } while (mod == 1);
 
+                        // Llamar el metodo de la clase BLL que valida si se pudo modificar el invetario
                         string msgError = BusinessLogicLayer.ProductBLL.Modificar_Inventario(p);
 
+                        // Si el mesaje es nulo o esta vacio entonces mostrara el mensaje de operacion realizada con exito
                         if (string.IsNullOrEmpty(msgError))
                         {
 
@@ -813,6 +867,7 @@ namespace Eleventa.ConsoleApp
                             Console.ReadLine();
 
                         }
+                        //Pero si no esta vacio entonces mostrara el mensaje de error
                         else
                         {
 
@@ -824,9 +879,11 @@ namespace Eleventa.ConsoleApp
                     }
 
                 }
+                //Si el objeto esta nulo entonces el ooroducto ni se encontro
                 else
                 {
 
+                    // Y mostrar un mensaje de error
                     Console.WriteLine("\n\t PRODUCTO NO ENCONTRADO :'(");
                     Console.ReadLine();
 
@@ -846,6 +903,10 @@ namespace Eleventa.ConsoleApp
 
         #region Ventas
 
+        /// <summary>
+        /// Metodo que realiza la logia de la venta
+        /// </summary>
+        /// <param name="dt">Data table el cual guardara los datos de la venta</param>
         public static void Ventas(DataTable dt)
         {
 
@@ -864,12 +925,15 @@ namespace Eleventa.ConsoleApp
 
                 Console.Write("\nCodigo de Barras:"); CodBar = Console.ReadLine();
 
+                // Mandar a llamar el metodo para encontrar el producto por medio del codigo de barras
                 findProdoductByBarCode(CodBar, dt);
 
+                // Clase el cual estara imprimiendo el data table enforma de tabla
                 ExtensionDataTable.PrintToConsole(dt);
 
                 Console.WriteLine("\n");
 
+                //Metodo que esta mostrando el data table con los datos generales de la venta
                 printFooter();
 
                 Console.WriteLine("\nDeseas Comprar otro Articulo?\n"
@@ -893,6 +957,7 @@ namespace Eleventa.ConsoleApp
 
                 string msgError = string.Empty;
 
+                // Objeto de la clase venta para guardar los datos
                 Sale sale = new Sale();
 
                 sale.Sucursal = "Apodaca Centro";
@@ -901,6 +966,7 @@ namespace Eleventa.ConsoleApp
                 sale.QuantityOfItems = quantityOfItems;
                 sale.Caja = "Default";
 
+                // Llamar al metodo que valida si la insercion de la tabla venta fue realizada
                 msgError = BusinessLogicLayer.SaleBLL.insertSale(sale);
 
                 if (string.IsNullOrEmpty(msgError))
@@ -913,24 +979,30 @@ namespace Eleventa.ConsoleApp
                     if(saleId > 0)
                     {
 
-                        //Insertar los datos dentro de la Tabla DetalleVenta
+                        // Foreach que recore el data table con los detalles del producto a comprar
                         foreach(DataRow row in dt.Rows)
                         {
 
+                            //Objeto de la entidad DetalleVenta para guardar los datos
                             DetalleVenta detalleVenta = new DetalleVenta();
 
+                            // Pasar los datos del data table al objeto
                             detalleVenta.IdVenta = saleId;
                             detalleVenta.IdProducto = Convert.ToInt32(BusinessLogicLayer.ProductBLL.getProductIdByCodeBar(row["Codigo_Barras"].ToString()));
                             detalleVenta.Cantidad = Convert.ToInt32(row["CANTIDAD"].ToString());
                             detalleVenta.Importe = Convert.ToDouble(row["Precio_Unitario"].ToString());
 
+                            // Guardar los datos a variables staticas para poder  hacer la modificacion de la resta de cantidad
+                            // segun los producto comprado
                             string codBar = row["Codigo_Barras"].ToString();
                             int quantity = Convert.ToInt32(row["CANTIDAD"].ToString());
 
                             //Una ves Agregado los datos al objeto detalleventa entonces se van a insertar a la tabla
 
+                            // Llamar el metodo a validar la insercion de los datos en la clase DetalleVenta
                             bool isCheked = BusinessLogicLayer.DetalleVentaBLL.insertDetalleVenta(detalleVenta);
 
+                            // Metodo para Modifcar la nueva cantidad de la clase Product
                             BusinessLogicLayer.ProductBLL.modifyQuantityOfItems(codBar, quantity);
 
                             if (isCheked)
@@ -962,11 +1034,15 @@ namespace Eleventa.ConsoleApp
 
         }
 
+        /// <summary>
+        /// Metodo el cual esta mostrando los datos generales de las venta
+        /// </summary>
         public static void printFooter()
         {
 
             DataTable dtFooter = new DataTable();
 
+            //Agregando las columnas al data table
             dtFooter.Columns.AddRange(new DataColumn[]
             {
 
@@ -978,6 +1054,7 @@ namespace Eleventa.ConsoleApp
 
             });
 
+            // e ir ingresando los a las filas segun la columna los datos guardados en las variables staticas
             var row = dtFooter.NewRow();
 
             row["TIPO_PAGO"] = "EFECTIVO";
@@ -988,40 +1065,55 @@ namespace Eleventa.ConsoleApp
 
             dtFooter.Rows.Add(row);
 
+            //Clase para imprimir el data table en forma de tabla
             ExtensionDataTable.PrintToConsole(dtFooter);
 
 
         }
 
+        /// <summary>
+        /// Metodo para encontrar el producto por medio del codigo de barras
+        /// </summary>
+        /// <param name="barCode">Codigo de barras para poder encontrar el producto</param>
+        /// <param name="dt">Guardar los datos en el data table</param>
         public static void findProdoductByBarCode(string barCode, DataTable dt)
         {
 
             Product p = new Product();
 
+            // Llamar el el cual encotrara los dato del producto
             p = BusinessLogicLayer.ProductBLL.findProdoductByBarCode(barCode);
 
+            // Si el objeto es diferente de nulo guardara los datos en las filas del data table
             if(p != null)
             {
 
+                // Declarar una variable var el cual estara guardando las filas en el data table
                 var row = dt.NewRow();
 
+                // Pasar el datos alas filas segun la columna del data table
                 row["Codigo_Barras"] = p.CodigoBarras;
                 row["Descripcion"] = p.Descripcion;
                 row["CANTIDAD"] = 1;
                 row["Precio_Unitario"] = p.Precio;
                 row["Importe"] = (p.Precio * .16) + p.Precio;
 
+                // Guardar las filas al data table
                 dt.Rows.Add(row);
 
+                // Guardar algunos datos a estas variables staticas para poder ingresarlos al data table con la informacion
+                // General de la venta
                 quantityOfItems = quantityOfItems + 1;
                 subtotal = subtotal + Convert.ToDouble(row["Precio_Unitario"].ToString());
                 iva = iva + Convert.ToDouble(row["Precio_Unitario"]) * .16;
                 total = total + Convert.ToDouble(row["Importe"].ToString());
 
             }
+            // Pero si el objeto es nulo
             else
             {
 
+                //Entonces mostrar un mensaje de que no se encontro el producto
                 Console.WriteLine("\n\tNose encontro el producto");
                 Console.ReadLine();
 
