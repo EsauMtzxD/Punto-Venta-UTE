@@ -108,6 +108,8 @@ namespace Eleventa.ConsoleApp
 
                 }
 
+                Console.Clear();
+
                 Console.WriteLine("Desea Hacer otra cosa?\n"
                     +"1.- Si\n"
                     +"2.- No");
@@ -160,9 +162,9 @@ namespace Eleventa.ConsoleApp
 
                 Console.WriteLine("\n");
                 Console.WriteLine("\t:D --------- Productos --------- xD\n");
-                Console.WriteLine("\tQue Operacion desear realizar?... \n"
+                Console.WriteLine("\tQue Operacion deseas realizar?... \n"
                                      + "\t1.- Agregar Producto \n"
-                                     + "\t2.- Modificar Producti \n"
+                                     + "\t2.- Modificar Producto \n"
                                      + "\t3.- Eliminar Producto");
 
                 Operacion = Convert.ToInt32(Console.ReadLine());
@@ -170,7 +172,7 @@ namespace Eleventa.ConsoleApp
                 if ((Operacion >= 4) || (Operacion < 1))
                 {
 
-                    Console.WriteLine("\tPorfavor ingrese una de las opciones mostradas :D");
+                    Console.WriteLine("\n\tPorfavor ingrese una de las opciones mostradas :D");
 
                 }
 
@@ -226,7 +228,7 @@ namespace Eleventa.ConsoleApp
                 if(cVen >= 4 || cVen < 1)
                 {
 
-                    Console.WriteLine("\tPorfavor elegir una de las Opciones Mostradas :D");
+                    Console.WriteLine("\n\tPorfavor elegir una de las Opciones Mostradas :D");
 
                 }
 
@@ -291,7 +293,7 @@ namespace Eleventa.ConsoleApp
                     else
                     {
 
-                        Console.WriteLine("Porfavor eliga una de las Opciones Mostradas");
+                        Console.WriteLine("\n\tPorfavor eliga una de las Opciones Mostradas");
 
                     }
 
@@ -322,7 +324,7 @@ namespace Eleventa.ConsoleApp
                 if (string.IsNullOrEmpty(msgError))
                 {
 
-                    Console.Write("\nSe inserto el Producto correctamente");
+                    Console.Write("\n\tSe inserto el Producto correctamente");
                     Console.ReadLine();
 
                 }
@@ -352,7 +354,7 @@ namespace Eleventa.ConsoleApp
 
             Console.WriteLine("\n");
             Console.WriteLine("-----Eliminar-----\n");
-            Console.WriteLine("Ingresa el Codigo de Barras que quieres Eliminar"); p.CodigoBarras = Console.ReadLine().ToString().Trim();
+            Console.Write("Codigo de Barras: "); p.CodigoBarras = Console.ReadLine().ToString().Trim();
             
             try
             {
@@ -431,7 +433,7 @@ namespace Eleventa.ConsoleApp
 
             Console.WriteLine("\n");
             Console.WriteLine("----------Modificar Producto-----------\n");
-            Console.WriteLine("Ingrese el codigo de barras del producto que quiera eliminar");
+            Console.Write("Codigo de Barras: ");
             barcode = Console.ReadLine().ToString().Trim();
             old.CodigoBarras = barcode;
 
@@ -533,7 +535,7 @@ namespace Eleventa.ConsoleApp
                                         if (cVen >= 4 || cVen < 1)
                                         {
 
-                                            Console.WriteLine("\tPorfavor elegir una de las Opciones Mostradas :D");
+                                            Console.WriteLine("\n\tPorfavor elegir una de las Opciones Mostradas :D");
 
                                         }
 
@@ -561,7 +563,7 @@ namespace Eleventa.ConsoleApp
 
                                 case 6:
 
-                                    Console.WriteLine("\nIngrasa el nuevo costo"); p.Costo = Convert.ToDouble(Console.ReadLine());
+                                    Console.WriteLine("\nIngresa el nuevo costo"); p.Costo = Convert.ToDouble(Console.ReadLine());
 
                                     pventa = p.Costo + (p.Costo * (p.Ganancia / 100));
                                     p.Precio = pventa;
@@ -617,7 +619,7 @@ namespace Eleventa.ConsoleApp
                                         else
                                         {
 
-                                            Console.WriteLine("Porfavor eliga una de las Opciones Mostradas");
+                                            Console.WriteLine("\n\tPorfavor eliga una de las Opciones Mostradas");
 
                                         }
 
@@ -660,7 +662,7 @@ namespace Eleventa.ConsoleApp
                         if (string.IsNullOrEmpty(msgError))
                         {
 
-                            Console.WriteLine("\tSE MODIFICO EL PRODUCTO CON EXITO :D!!!!!");
+                            Console.WriteLine("\n\tSE MODIFICO EL PRODUCTO CON EXITO :D!!!!!");
                             Console.ReadLine();
 
                         }
@@ -703,7 +705,7 @@ namespace Eleventa.ConsoleApp
             DataTable dt = new DataTable(); Product p = new Product(); Product product = new Product();
             string BarCode; int res, camp, mod; double pVenta;
 
-            Console.Write("Ingresa el codigo de Barras: "); BarCode = Console.ReadLine().ToString().Trim();
+            Console.Write("Codigo de Barras: "); BarCode = Console.ReadLine().ToString().Trim();
             product.CodigoBarras = BarCode;
             try
             {
@@ -922,14 +924,22 @@ namespace Eleventa.ConsoleApp
                             detalleVenta.Cantidad = Convert.ToInt32(row["CANTIDAD"].ToString());
                             detalleVenta.Importe = Convert.ToDouble(row["Precio_Unitario"].ToString());
 
+                            string codBar = row["Codigo_Barras"].ToString();
+                            int quantity = Convert.ToInt32(row["CANTIDAD"].ToString());
+
                             //Una ves Agregado los datos al objeto detalleventa entonces se van a insertar a la tabla
 
                             bool isCheked = BusinessLogicLayer.DetalleVentaBLL.insertDetalleVenta(detalleVenta);
 
+                            BusinessLogicLayer.ProductBLL.modifyQuantityOfItems(codBar, quantity);
+
                             if (isCheked)
                             {
 
+                                Console.Clear();
+
                                 Console.WriteLine("\n\tGRACIAS POR SU COMPRA, VUELVA PRONTO");
+                                Console.ReadLine();
 
                             }
 

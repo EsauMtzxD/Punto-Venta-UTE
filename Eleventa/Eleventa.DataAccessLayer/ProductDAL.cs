@@ -343,5 +343,25 @@ namespace Eleventa.DataAccessLayer
 
         }
 
+        public static void modifyQuantityOfItems(string codBar, int quantityOfItem)
+        {
+
+            using(EleventaDbContext dbCtx = new EleventaDbContext())
+            {
+
+                Product p = dbCtx.Products.Where(x => x.CodigoBarras == codBar).SingleOrDefault();
+
+                int stock_actual = p.Cantidad - quantityOfItem;
+
+                p.Cantidad = stock_actual;
+
+                dbCtx.Entry(p).State = System.Data.Entity.EntityState.Modified;
+
+                dbCtx.SaveChanges();
+
+            }
+
+        }
+
     }
 }

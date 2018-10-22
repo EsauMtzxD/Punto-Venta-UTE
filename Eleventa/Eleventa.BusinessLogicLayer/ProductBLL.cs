@@ -185,5 +185,14 @@ namespace Eleventa.BusinessLogicLayer
 
         }
 
+        public static void modifyQuantityOfItems(string codBar, int quantityOfItem)
+        {
+
+            DataAccessLayer.ProductDAL.modifyQuantityOfItems(codBar, quantityOfItem);
+
+        }
+
+
+
     }
 }
